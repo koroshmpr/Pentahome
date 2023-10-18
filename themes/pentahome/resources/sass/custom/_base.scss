@@ -1,0 +1,87 @@
+html, body {
+  overflow-x: hidden;
+}
+
+p {
+  @extend .fw-light;
+}
+
+a {
+  text-decoration: none;
+}
+body {
+  direction: ltr;
+  padding: 0!important;
+}
+
+.vh-65 {
+  height: 65vh;
+}
+
+.min-vh-50 {
+  min-height: 50vh;
+}
+
+.link-hover:hover {
+  color: $red !important;
+}
+body.modal-open {
+  .product-card  {
+    animation-name: unset!important;
+  }
+  height: 100vh;
+  overflow-y: hidden;
+}
+.overflow-scroll-y {
+  overflow-y: scroll!important;
+}
+.text-justify {
+  text-align: justify;
+}
+.no-decoration {
+  text-decoration: none;
+}
+.object-fit {
+  object-fit: cover;
+}
+
+.translate-min {
+  transform: translateY(-35px);
+}
+
+.transparent {
+  opacity: 0.3;
+}
+
+.z-10 {
+  z-index: 10!important;
+}
+
+.z-top {
+  z-index: 2!important;
+}
+
+.z-below {
+  z-index: 1;
+}
+
+.lazy {
+  transition: all 0.3s ease-in-out;
+}
+
+.lazy-slow {
+  transition: all 0.9s ease-in-out;
+}
+
+// SCROLL bar styles
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: $white;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $primary;
+}

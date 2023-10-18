@@ -1,0 +1,93 @@
+header {
+  .menu-bar1, .menu-bar2, .menu-bar3 {
+    height: 0.2rem;
+    background-color: #fff;
+    margin: 0.5rem 0;
+    transition: 0.4s;
+  }
+
+  .menu-bar1, .menu-bar3 {
+    width: 2.5rem;
+  }
+
+  .menu-bar2 {
+    width: 1.5rem;
+    margin-left: auto;
+  }
+
+  .active {
+    .menu-bar1 {
+      animation: move-down 0.4s linear;
+    }
+
+    .menu-bar3 {
+      animation: move-up 0.4s linear;
+    }
+
+    .menu-bar2 {
+      animation: move 0.4s linear;
+    }
+  }
+}
+
+.navbar-brand {
+  #logo {
+    fill: $primary;
+    transition: all 0.5s linear;
+  }
+
+  #brand, #slogan {
+    fill: $white;
+    transition: all ease-in-out 0.3s;
+  }
+}
+
+.scrolled {
+  .navbar-brand {
+    #brand, #slogan {
+      opacity: 0 !important;
+    }
+
+    #logo {
+      fill: $white;
+      transform: translateX(-40%);
+    }
+  }
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0px);
+  }
+  50% {
+    transform: translateX(-1rem);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes move-down {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes move-up {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
