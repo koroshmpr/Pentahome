@@ -3,81 +3,119 @@
 //
 
 .btn {
-    display: inline-block;
-    font-family: $btn-font-family;
-    font-weight: $btn-font-weight;
-    line-height: $btn-line-height;
-    color: $body-text;
-    text-align: center;
-    text-decoration: none;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
-    @include transition($btn-transition);
-    outline: 0 !important;
-    z-index: 1;
-    position: relative;
+  display: inline-block;
+  font-family: $btn-font-family;
+  font-weight: $btn-font-weight;
+  line-height: $btn-line-height;
+  color: $body-text;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  @include button-size($btn-padding-y, $btn-padding-x, $btn-font-size, $btn-border-radius);
+  @include transition($btn-transition);
+  outline: 0 !important;
+  z-index: 1;
+  position: relative;
 
-    &:disabled,
-    &.disabled,
-    fieldset:disabled & {
-        pointer-events: none;
-        opacity: $btn-disabled-opacity;
-        @include box-shadow(none);
-    }
+  &:disabled,
+  &.disabled,
+  fieldset:disabled & {
+    pointer-events: none;
+    opacity: $btn-disabled-opacity;
+    @include box-shadow(none);
+  }
 }
 
 @mixin dynamic-button($bg-color, $text-color) {
 
-    &.button {
-        position: relative;
-        background: $primary;
-        color: $bg-color;
-        border-radius: 15px;
-        border: 2px solid transparent;
-        transition: all .4s ease-in-out;
-        padding: 11px 27px;
-        margin: 2px 6px;
-        &:hover {
-            background: rgba($bg-color, .15);
-            -webkit-text-fill-color: $primary;
-            border: 2px solid $primary;
-            color: $primary;
-        }
+  &.button {
+    position: relative;
+    background: $primary;
+    color: $bg-color;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    transition: all .4s ease-in-out;
+    padding: 11px 27px;
+    margin: 2px 6px;
+
+    &:hover {
+      background: rgba($bg-color, .15);
+      -webkit-text-fill-color: $primary;
+      border: 2px solid $primary;
+      color: $primary;
     }
-    &.button:active {
-        outline: none;
-    }
-    &.button:focus {
-        outline: 0;
-    }
+  }
+  &.button:active {
+    outline: none;
+  }
+  &.button:focus {
+    outline: 0;
+  }
 
 }
 
 // Define classes for different button colors
 .button-white {
-    @include dynamic-button($white, white);
+  @include dynamic-button($white, white);
 }
 
 .button-dark {
-    @include dynamic-button($dark, black);
+  @include dynamic-button($dark, black);
 }
-.btn-fixed {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    z-index: 10;
-    line-height: 2.4;
 
-    &:hover, &:focus {
-        animation: pulse 0.6s;
-        box-shadow: 0 0 0 1.5em transparent;
-    }
+.btn-fixed {
+  width: 50px;
+  height: 50px;
+  bottom: 15px;
+  z-index: 10;
+  line-height: 2.4;
+
+  &:hover, &:focus {
+    animation: pulse 0.6s;
+    box-shadow: 0 0 0 1.5em transparent;
+  }
 }
-    .backTo_Top {
-        left :15px;
+
+.backTo_Top {
+  left: 15px;
+}
+.btn-custom{
+  border: none;
+  padding: 10px 15px;
+  font-size: 25px;
+  position: relative;
+  &::before{
+    transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 10px;
+  }
+  &.ball{
+    border-radius:40px;
+    & .text-green{
+      color:$primary;
+      mix-blend-mode: difference;
     }
+
+    &::before{
+      border-radius: 40px;
+      width: 40%;
+      background: $primary;
+    }
+    &:hover{
+      &::before{
+        animation:unset;
+        @extend .bg-opacity-75;
+        background: $primary;
+        width: 120%;
+      }
+    }
+  }
+}

@@ -18,7 +18,7 @@ if ($loop->have_posts()) :
         ?>
         <div class="swiper-slide product_slide vh-100" data-hash="products">
             <section class="container">
-                <div class="row align-items-lg-start align-content-center justify-content-start px-lg-5 gap-4 gap-lg-0">
+                <div class="row align-items-lg-start align-content-center justify-content-lg-between px-lg-5 gap-4 gap-lg-0">
                     <div class="col-lg-6">
                         <div class="d-inline-flex align-items-end gap-4"
                              data-aos-delay="100">
@@ -33,30 +33,33 @@ if ($loop->have_posts()) :
                         <h4 class="text-dark fs-5 mt-1">
                             <?= $manufacturer; ?>
                         </h4>
-                        <div class="mt-4">
+                        <div class="mt-4 mb-5">
                             <?= the_content(); ?>
                         </div>
-                        <a href="<?= the_permalink();?>" class="btn product-btn px-4 shadow-sm">
-                            مشاهده
+                        <a href="<?= the_permalink();?>" class="btn-custom ball py-1">
+                           <span class="text-green">مشاهده</span>
                         </a>
                     </div>
                     <div class="col-lg-6 translate-middle-lg-y">
-                        <div class="swiper overflow-visible swiper<?= $i; ?>">
-                            <div class="swiper-wrapper">
-                                <?php
-                                if ($gallery): ?>
-                                    <?php foreach ($gallery as $image): ?>
-                                        <div class="swiper-slide">
-                                            <img class="rounded-2 object-fit w-100" height="350"
-                                                 src="<?php echo esc_url($image['url']); ?>"
-                                                 alt="<?php echo esc_attr($image['alt']); ?>"/>
-                                        </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </div>
-                            <!-- If we need pagination -->
-                            <div class="swiper-pagination w-100 px-0 mx-0 mb-n4 start-0 rounded-pill d-flex justify-content-center p-2"></div>
-                        </div>
+                        <img class="img-fluid"
+                             src="<?php echo esc_url(the_post_thumbnail_url()); ?>"
+                             alt="<?php echo esc_attr(get_the_title()); ?>"/>
+<!--                        <div class="swiper overflow-visible swiper--><?php //= $i; ?><!--">-->
+<!--                            <div class="swiper-wrapper">-->
+<!--                                --><?php
+//                                if ($gallery): ?>
+<!--                                    --><?php //foreach ($gallery as $image): ?>
+<!--                                        <div class="swiper-slide">-->
+<!--                                            <img class="rounded-2 object-fit w-100 bg-warning" height="450"-->
+<!--                                                 src="--><?php //echo esc_url($image['url']); ?><!--"-->
+<!--                                                 alt="--><?php //echo esc_attr($image['alt']); ?><!--"/>-->
+<!--                                        </div>-->
+<!--                                    --><?php //endforeach; ?>
+<!--                                --><?php //endif; ?>
+<!--                            </div>-->
+<!--                             If we need pagination -->
+<!--                            <div class="swiper-pagination w-100 px-0 mx-0 mb-n4 start-0 rounded-pill d-flex justify-content-center p-2"></div>-->
+<!--                        </div>-->
                     </div>
                 </div>
 

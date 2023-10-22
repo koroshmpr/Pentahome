@@ -236,3 +236,16 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
 	return $urls;
 }
+function custom_post_type_args( $args, $post_type ) {
+    // Change 'project' to the slug of your custom post type
+    if ( 'portfolio' === $post_type ) {
+        // Set the with_front parameter to false
+        $args['rewrite']['with_front'] = false;
+    }
+    if ( 'services' === $post_type ) {
+        // Set the with_front parameter to false
+        $args['rewrite']['with_front'] = false;
+    }
+    return $args;
+}
+add_filter( 'register_post_type_args', 'custom_post_type_args', 10, 2 );

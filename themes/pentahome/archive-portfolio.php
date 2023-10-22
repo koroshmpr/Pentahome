@@ -21,7 +21,7 @@
                 $loop->the_post(); ?>
                 <div class="masonry-item col-12 col-md-6 p-2 overflow-hidden">
                     <div class="w-100 h-100 position-relative portfolio_card p-0 overflow-hidden">
-                        <img class="object-fit img-fluid"
+                        <img class="object-fit w-100 img-fluid bg-warning"
                              src="<?php echo esc_url(the_post_thumbnail_url()); ?>"
                              alt="<?php echo get_the_title(); ?>"/>
                         <a href="<?php the_permalink(); ?>"

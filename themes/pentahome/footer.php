@@ -1,5 +1,5 @@
 <?php if (!is_front_page()) { ?>
-    <footer class="bg-primary bg-opacity-25 py-5 overflow-hidden mt-4">
+    <footer class="bg-warning py-5 overflow-hidden mt-4">
         <div class="container">
             <div class="row row-cols-lg-2">
                 <div class="text-center">
