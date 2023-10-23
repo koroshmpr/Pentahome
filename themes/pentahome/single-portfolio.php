@@ -2,6 +2,12 @@
 
 <?php $gallery = get_field('gallery'); ?>
     <section class="container-fluid">
+        <div class="d-inline-flex align-items-end gap-4 ps-3 py-3 title" data-aos="fade-left" data-aos-duration="500">
+            <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark" style="width: 40px">
+            <h1 class="display-1 fw-bold text-dark">
+                <?= the_title(); ?>
+            </h1>
+        </div>
         <div class="masonry justify-content-center">
             <?php
             $i = 0;

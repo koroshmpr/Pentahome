@@ -1,15 +1,17 @@
 @include media-breakpoint-up(lg) {
-  header {
-    box-shadow: -4px 0 10px #80808026;
-  }
-  .translate-middle-lg-y {
-  transform: translateY(40%) !important
+  .heroBg {
+    width: 22%;
+    height: 43%;
   }
   .hero-pagination {
     width: 25% !important;
   }
 }
 @include media-breakpoint-down(lg) {
+  .heroBg {
+    width: 70%;
+    height: 30%;
+  }
   .mobile-offcanvas {
     width: calc(100vw - 60px) !important
   }

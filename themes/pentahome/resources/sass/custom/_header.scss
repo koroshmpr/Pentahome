@@ -90,4 +90,26 @@ header {
     transform: translateY(0px);
   }
 }
-
+.current-menu-item {
+  a {
+    color : $primary!important;
+  }
+}
+.current_page_item {
+  font-weight: bold;
+  i{
+  color : $primary!important;
+  }
+  a {
+    color : $primary!important;
+  }
+}
+.sub-menu {
+  list-style: square;
+}
+li.menu-item-has-children {
+  display: grid;
+  grid-template-columns: repeat(2,auto);
+  justify-content: center;
+  margin-left: 25px;
+}

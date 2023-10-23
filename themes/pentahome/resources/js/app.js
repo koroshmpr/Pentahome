@@ -125,6 +125,38 @@ import imagesLoaded from 'imagesloaded';
 
 document.addEventListener('DOMContentLoaded', function () {
     AOS.init()
+    function addCollapse(menuId) {
+        // Select the menu by its ID
+        let menu = $(`#${menuId}`);
+
+        // Find <li> elements with the "menu-item-has-children" class
+        menu.find('li.menu-item-has-children').each(function() {
+            let listItem = $(this);
+
+            // Find the anchor link
+            let anchor = listItem.children('a');
+
+            // Add a button after the anchor link
+            anchor.after('<button type="button" id="" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#' + listItem.attr('id') + '-submenu"><i class="bi bi-plus-lg"></i></button>');
+
+            // Set attributes for Bootstrap collapse
+            let submenu = listItem.find('ul.sub-menu');
+            submenu.attr('id', listItem.attr('id') + '-submenu');
+            submenu.addClass('collapse');
+
+            // Prevent the button from following the link
+            anchor.next('button').on('click', function(event) {
+                event.preventDefault();
+            });
+        });
+    }
+
+// Call the function with the menu ID you want to modify
+    addCollapse('navbarMenu');
+    addCollapse('navbarMenuMobile');
+    addCollapse('navbarHomeMenu');
+
+
     if (!$('body').hasClass('home')) {
         let backToTop = document.getElementById("backToTop");
         backToTop.addEventListener('click', backtoTopHandler)
@@ -178,6 +210,13 @@ document.addEventListener('DOMContentLoaded', function () {
             clickable: true,
         },
         on: {
+            slideChange: function() {
+                $('.heroBg').removeClass('heroIntro');
+
+                // Add the 'heroIntro' class to the 'heroBg' element in the active slide
+                let activeSlide = this.slides[this.activeIndex];
+                $(activeSlide).find('.heroBg').addClass('heroIntro');
+            },
             init: function () {
                 let elementsWithNumberGreaterThanOne = document.querySelectorAll('[data-number]:not([data-number="1"])');
                 elementsWithNumberGreaterThanOne.forEach(function (element) {

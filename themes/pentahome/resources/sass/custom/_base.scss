@@ -5,8 +5,11 @@ html, body {
 p {
   @extend .fw-light;
 }
-
+.custom-pagination-item {
+  cursor: pointer;
+}
 a {
+  cursor: pointer;
   text-decoration: none;
 }
 body {

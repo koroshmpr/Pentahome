@@ -9,12 +9,13 @@
                         <div class="menu-bar3"></div>
                     </div>
                 </button>
-                <div class="offcanvas offcanvas-bottom bg-secondary bg-opacity-75" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas offcanvas-bottom bg-secondary" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
                         <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="offcanvas-body">
+                    <div class="offcanvas-body d-flex flex-column justify-content-between align-items-center">
+                        <?php get_template_part('template-parts/logo_brand');?>
                         <?php
                         $locations = get_nav_menu_locations();
                         $menu = wp_get_nav_menu_object($locations['headerMenuLocation']);
@@ -23,13 +24,46 @@
                                 'theme_location' => 'headerMenuLocation',
                                 'menu_class' => 'navbar-nav gap-2 align-items-center flex-wrap',
                                 'container' => false,
-                                'menu_id' => 'navbarTogglerMenu',
+                                'menu_id' => 'navbarHomeMenu',
                                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
                                 'link_class' => 'nav-link text-white fs-3', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
-                                'depth' => 1,
+                                'depth' => 2,
                             ));
                         endif;
                         ?>
+
+                        <div class="d-flex gap-5 justify-content-center">
+                            <div class="d-flex justify-content-center align-items-center gap-3 pb-3">
+                                <?php
+                                while (have_rows('social', 'option')): the_row() ?>
+                                    <a href="<?= get_sub_field('link')['url'] ?>">
+                                        <?= get_sub_field('icon') ?>
+                                    </a>
+                                <?php
+                                endwhile; ?>
+                            </div>
+                            <div class="py-4 py-lg-0">
+                                <h5 class="text-start mb-0 text-white pb-3">
+                                    راه های ارتباطی :
+                                </h5>
+                                <div class="d-flex align-items-start gap-3">
+                                    <ul class="list-unstyled mb-0 d-flex flex-column align-items-start justify-content-start">
+                                        <li class="d-inline-flex gap-3 align-items-center">
+                                            <i class="bi bi-telephone fs-4 text-primary"></i>
+                                            <a class="text-white" href="tel:<?= get_field('phone', 'option'); ?>">
+                                                <?= get_field('phone', 'option'); ?>
+                                            </a>
+                                        </li>
+                                        <li class="d-inline-flex gap-3 align-items-center">
+                                            <i class="bi bi-envelope fs-4 text-primary"></i>
+                                            <a class="text-white" href="mailto:<?= get_field('email', 'option'); ?>">
+                                                <?= get_field('email', 'option'); ?>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             <?php get_template_part('template-parts/logo_brand');?>

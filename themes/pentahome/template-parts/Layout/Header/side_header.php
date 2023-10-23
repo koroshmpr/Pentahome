@@ -19,20 +19,21 @@
                 'theme_location' => 'headerMenuLocation',
                 'menu_class' => 'navbar-nav gap-2 align-items-center flex-wrap mb-auto',
                 'container' => false,
-                'menu_id' => 'navbarTogglerMenu',
+                'menu_id' => 'navbarMenu',
                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
-                'link_class' => 'nav-link text-primary fs-5', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
-                'depth' => 1,
+                'link_class' => 'nav-link fs-5 text-dark', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
+                'depth' => 2,
             ));
         endif;
         ?>
                 <div class="d-flex justify-content-center align-items-center gap-3 pb-3 flex-wrap">
                     <?php if(is_singular('portfolio')) {?>
-                    <div class="call-button_container mb-4 d-flex justify-content-center col-12">
+                    <div class="call-button_container d-flex justify-content-center flex-column align-items-center col-12">
                         <a class="call-button bg-primary text-white rounded-circle d-flex justify-content-center align-content-center"
                            href="tel:<?= get_field('phone', 'option'); ?>">
                             <i class="bi bi-telephone"></i>
                         </a>
+                        <div class="text-center my-3">برای سفارش تماس بگیرید</div>
                     </div>
                     <?php
                     }
@@ -62,10 +63,10 @@
                 'theme_location' => 'headerMenuLocation',
                 'menu_class' => 'navbar-nav gap-2 align-items-center flex-wrap mb-auto',
                 'container' => false,
-                'menu_id' => 'navbarTogglerMenu',
+                'menu_id' => 'navbarMenuMobile',
                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
-                'link_class' => 'nav-link text-primary fs-5', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
-                'depth' => 1,
+                'link_class' => 'nav-link fs-5 text-dark', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
+                'depth' => 2,
             ));
         endif;
         ?>
