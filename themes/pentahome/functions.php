@@ -13,31 +13,26 @@ function amaco_scripts()
 
 
     wp_enqueue_script('main-js', get_template_directory_uri() . '/public/js/app.js', array(), true);
-// Get the SVG data from your ACF field.
-    $svg_data = array();
-    $args = array(
-        'post_type' => 'portfolio',
-        'post_status' => 'publish',
-        'order' => 'ASC',
-        'posts_per_page' => -1,
-        'ignore_sticky_posts' => true
-    );
-    $loop = new WP_Query($args);
-    if ($loop->have_posts()) :
-        while ($loop->have_posts()) :
-            $loop->the_post(); // Use the_post() to set up post data
-            $svg_label = get_field('svg_label');
-            if ($svg_label && is_array($svg_label)) {
-                $svg_line = $svg_label['svg_line'];
-                $svg_fill = $svg_label['svg_fill'];
-                $svg_data[] = array(
-                    'line' => $svg_line,
-                    'fill' => $svg_fill,
-                );
-            }
-        endwhile;
+
+    $terms = get_terms('portfolio_categories', array(
+        'parent' => 0, // This will retrieve only top-level categories
+    ));
+
+        $svg_data = array();
+    foreach ($terms as $category) {
+        $id = 'portfolio_categories_' . $category->term_id;
+        $svg_label = get_field('svg_label', $id); // Remove $id since you are inside the loop
+                if ($svg_label) {
+                    $svg_line = $svg_label['svg_line'];
+                    $svg_fill = $svg_label['svg_fill'];
+                    $svg_data[] = array(
+                        'line' => $svg_line,
+                        'fill' => $svg_fill,
+                    );
+        }
+
         wp_reset_postdata(); // Reset post data
-    endif;
+    }
 
 // Pass the SVG data to your JavaScript.
     wp_localize_script('main-js', 'svgData', $svg_data);
@@ -47,6 +42,40 @@ function amaco_scripts()
         'nonce' => wp_create_nonce('my-nonce'),
     ));
 }
+//// Get the SVG data from your ACF field.
+//    $svg_data = array();
+//    $args = array(
+//        'post_type' => 'portfolio',
+//        'post_status' => 'publish',
+//        'order' => 'ASC',
+//        'posts_per_page' => -1,
+//        'ignore_sticky_posts' => true
+//    );
+//    $loop = new WP_Query($args);
+//    if ($loop->have_posts()) :
+//        while ($loop->have_posts()) :
+//            $loop->the_post(); // Use the_post() to set up post data
+//            $svg_label = get_field('svg_label');
+//            if ($svg_label && is_array($svg_label)) {
+//                $svg_line = $svg_label['svg_line'];
+//                $svg_fill = $svg_label['svg_fill'];
+//                $svg_data[] = array(
+//                    'line' => $svg_line,
+//                    'fill' => $svg_fill,
+//                );
+//            }
+//        endwhile;
+//        wp_reset_postdata(); // Reset post data
+//    endif;
+//
+//// Pass the SVG data to your JavaScript.
+//    wp_localize_script('main-js', 'svgData', $svg_data);
+//
+//    wp_localize_script('main-js', 'jsData', array(
+//        'root_url' => get_site_url(),
+//        'nonce' => wp_create_nonce('my-nonce'),
+//    ));
+//}
 
 add_action( 'wp_enqueue_scripts', 'amaco_scripts' );
 add_theme_support( 'title-tag' );

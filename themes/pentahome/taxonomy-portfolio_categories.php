@@ -4,7 +4,7 @@
     <div class="d-inline-flex align-items-end gap-4 ps-3 py-3 title" data-aos="fade-left" data-aos-duration="500">
         <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark" style="width: 40px">
         <h1 class="display-1 fw-bold text-secondary">
-            <?= get_the_title('', false); ?>
+            <?= single_cat_title('', false); ?>
         </h1>
     </div>
 
@@ -13,6 +13,16 @@
             <?php
             $current_category = get_queried_object(); // Get the current category
             $taxonomy = 'portfolio_categories';
+
+            // Query child categories of the current category
+            $child_args = array(
+                'taxonomy' => $taxonomy,
+                'child_of' => $current_category->term_id,
+                'hide_empty' => 0,
+            );
+
+            $subcategories = get_categories($child_args);
+
             // Add the "Select All" option
             echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
             echo '<label class="d-flex align-items-start gap-2">';
@@ -20,14 +30,6 @@
             echo '<p class="mb-0">همه</p>';
             echo '</label>';
             echo '</li>';
-            // Query child categories of the current category
-            $child_args = array(
-                'taxonomy' => $taxonomy,
-                'parent' => 0, // 0 indicates parent categories
-                'hide_empty' => 0,
-            );
-
-            $subcategories = get_categories($child_args);
 
             foreach ($subcategories as $subcategory) {
                 $thumbnail_id = get_term_meta($subcategory->term_id, 'thumbnail_id', true);
@@ -36,7 +38,7 @@
 
                 echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
                 echo '<label class="d-flex align-items-start gap-2">';
-                echo '<input type="checkbox" checked="false" class="category-filter mt-1" value="' . $subcategory->term_id . '"> ';
+                echo '<input type="checkbox" class="category-filter" value="' . $subcategory->term_id . '"> ';
                 echo '<p class="mb-0"> ' . $subcategory_name . '</p>';
                 if ($thumbnail_url) {
                     echo '<img class="img-thumbnail ms-auto me-0" width="40" height="40" src="' . $thumbnail_url . '">';
@@ -46,6 +48,7 @@
             }
             ?>
         </ul>
+
     </div>
     <?php
 
@@ -56,6 +59,13 @@
     $args = array(
         'post_type' => 'portfolio',
         'posts_per_page' => -1,
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'portfolio_categories',
+                'field' => 'slug',
+                'terms' => get_queried_object()->slug,
+            ),
+        ),
     );
     $loop = new WP_Query($args);
 

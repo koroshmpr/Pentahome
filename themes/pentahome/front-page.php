@@ -16,7 +16,8 @@ get_header(); ?>
                 ?>
             </div>
             <?php
-            get_template_part('template-parts/homepage/portfolio_slider')
+//            get_template_part('template-parts/homepage/portfolio_slider')
+            get_template_part('template-parts/homepage/portfolio_categories-slide')
             ?>
             <?php
             get_template_part('template-parts/Layout/footer');

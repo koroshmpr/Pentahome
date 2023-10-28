@@ -1,4 +1,7 @@
 @include media-breakpoint-up(lg) {
+  .translate-middle-lg-y {
+    transform: translateY(40%) !important
+  }
   .heroBg {
     width: 22%;
     height: 43%;
@@ -8,6 +11,9 @@
   }
 }
 @include media-breakpoint-down(lg) {
+  .translate-middle-lg-y {
+    transform: translateY(25%) !important
+  }
   .heroBg {
     width: 70%;
     height: 30%;

@@ -41,28 +41,33 @@ if ($loop->have_posts()) :
                         </a>
                     </div>
                     <div class="col-lg-6 translate-middle-lg-y">
-<!--                        <img class="img-fluid"-->
-<!--                             src="--><?php //echo esc_url(the_post_thumbnail_url()); ?><!--"-->
-<!--                             alt="--><?php //echo esc_attr(get_the_title()); ?><!--"/>-->
                         <div class="swiper overflow-visible swiper<?= $i; ?>">
                             <div class="swiper-wrapper">
                                 <?php
-                                if ($gallery): ?>
-                                    <?php foreach ($gallery as $image): ?>
+                                if ($gallery) {
+                                    // Shuffle the array to randomize the order
+                                    shuffle($gallery);
+
+                                    // Limit the number of items to 6
+                                    $limitedGallery = array_slice($gallery, 0, 6);
+
+                                    foreach ($limitedGallery as $image) {
+                                        ?>
                                         <div class="swiper-slide">
                                             <img class="rounded-2 object-fit w-100 bg-warning" height="450"
                                                  src="<?php echo esc_url($image['url']); ?>"
                                                  alt="<?php echo esc_attr($image['alt']); ?>"/>
                                         </div>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </div>
 <!--                             If we need pagination-->
                             <div class="swiper-pagination w-100 px-0 mx-0 mb-n4 start-0 rounded-pill d-flex justify-content-center p-2"></div>
                         </div>
                     </div>
                 </div>
-
             </section>
         </div>
     <?php endwhile;

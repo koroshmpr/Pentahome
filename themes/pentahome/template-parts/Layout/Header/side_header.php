@@ -61,11 +61,11 @@
         if ($menu) :
             wp_nav_menu(array(
                 'theme_location' => 'headerMenuLocation',
-                'menu_class' => 'navbar-nav gap-2 align-items-center flex-wrap mb-auto',
+                'menu_class' => 'navbar-nav flex-wrap mb-auto',
                 'container' => false,
                 'menu_id' => 'navbarMenuMobile',
                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
-                'link_class' => 'nav-link fs-5 text-dark', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
+                'link_class' => 'nav-link fs-5 text-secondary', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
                 'depth' => 2,
             ));
         endif;

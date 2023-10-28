@@ -8,6 +8,92 @@ import 'aos/dist/aos.css';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
+
+$(document).ready(function () {
+    function initializeMasonry() {
+        var masonryGrids = document.querySelectorAll(".masonry");
+
+        // Loop through all masonry grids and initialize Masonry
+        masonryGrids.forEach(function (masonryGrid) {
+            var masonryItems = masonryGrid.querySelectorAll(".masonry-item");
+
+            var masonry = new Masonry(masonryGrid, {
+                itemSelector: ".masonry-item",
+                columnWidth: ".masonry-item",
+                originLeft: false,
+                transitionDuration: '0.8s',
+                percentPosition: true,
+            });
+
+            // Initialize Masonry after images have loaded
+            imagesLoaded(masonryGrid).on("progress", function () {
+                masonry.layout();
+            });
+        });
+    }
+
+    initializeMasonry();
+
+    // Attach the event handler to a parent element that exists in the DOM when the page loads
+    var selectAllClicked = false;
+
+    $(document).on('change', '.category-filter', function () {
+        var selectedCategories = [];
+        var isSelectAllChecked = false;
+
+        // Loop through all the checkboxes
+        $('.category-filter').each(function () {
+            var categoryCheckbox = $(this);
+            var categoryLi = categoryCheckbox.closest('li'); // Find the parent <li>
+
+            if (categoryCheckbox.is(':checked')) {
+                var category = categoryCheckbox.val();
+
+                if (category == 'all') {
+                    isSelectAllChecked = true;
+                } else {
+                    selectedCategories.push(category);
+                }
+
+                // Toggle the 'active' class on the parent <li
+                categoryLi.addClass('active');
+            } else {
+                // Remove the 'active' class
+                categoryLi.removeClass('active');
+            }
+        });
+
+        // Filter the product list based on selected categories
+        $('.product-card').each(function () {
+            var productCategories = $(this).attr('data-categories');
+            var masonryItem = $(this).closest('.masonry-item');
+
+            if (isSelectAllChecked || selectedCategories.length === 0) {
+                // Show all products when "Select All" is checked or no category is selected
+                masonryItem.show();
+            } else {
+                // Filter products based on selected categories
+                if (productCategories) {
+                    var categories = productCategories.split(',');
+                    var matches = selectedCategories.filter(function (category) {
+                        return categories.indexOf(category) !== -1;
+                    });
+
+                    if (matches.length > 0) {
+                        masonryItem.show();
+                    } else {
+                        masonryItem.hide();
+                    }
+                } else {
+                    masonryItem.hide();
+                }
+            }
+        });
+
+        // After filtering, trigger Masonry to re-layout
+        initializeMasonry();
+    });
+});
     function homeSwiper() {
         AOS.init()
         let names = [];
@@ -43,7 +129,6 @@ import imagesLoaded from 'imagesloaded';
                 <!-- Render your content for the first slide here -->
             </div>
         `;
-
                         for (var i = 0; i < total; i++) {
                             if (Array.isArray(svgData) && svgData[i]) {
                                 var svg_line = svgData[i].line; // Get SVG line data
@@ -125,7 +210,7 @@ import imagesLoaded from 'imagesloaded';
 
 document.addEventListener('DOMContentLoaded', function () {
     AOS.init()
-    function addCollapse(menuId) {
+    function addCollapse(menuId , iconClass) {
         // Select the menu by its ID
         let menu = $(`#${menuId}`);
 
@@ -137,7 +222,8 @@ document.addEventListener('DOMContentLoaded', function () {
             let anchor = listItem.children('a');
 
             // Add a button after the anchor link
-            anchor.after('<button type="button" id="" class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#' + listItem.attr('id') + '-submenu"><i class="bi bi-plus-lg"></i></button>');
+            anchor.after(`<button type="button" id="" class="btn btn-link ps-3" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu"><i id="${listItem.attr('id')}-icon" class="${iconClass} bi bi-plus-lg fs-4"></i></button>`);
+
 
             // Set attributes for Bootstrap collapse
             let submenu = listItem.find('ul.sub-menu');
@@ -147,14 +233,29 @@ document.addEventListener('DOMContentLoaded', function () {
             // Prevent the button from following the link
             anchor.next('button').on('click', function(event) {
                 event.preventDefault();
+                toggleIcon(listItem.attr('id'));
             });
+
+            function toggleIcon(listItemId) {
+                const iconElement = $(`#${listItemId}-icon`);
+                const submenuElement = $(`#${listItemId}-submenu`);
+
+                if (iconElement.hasClass('bi-plus-lg')) {
+                    iconElement.removeClass('bi-plus-lg').addClass('bi-dash-lg');
+                    submenuElement.collapse('show');
+                } else {
+                    iconElement.removeClass('bi-dash-lg').addClass('bi-plus-lg');
+                    submenuElement.collapse('hide');
+                }
+            }
         });
     }
 
+
 // Call the function with the menu ID you want to modify
-    addCollapse('navbarMenu');
-    addCollapse('navbarMenuMobile');
-    addCollapse('navbarHomeMenu');
+    addCollapse('navbarMenu' ,'text-secondary');
+    addCollapse('navbarMenuMobile' , 'text-white');
+    addCollapse('navbarHomeMenu' , 'text-white');
 
 
     if (!$('body').hasClass('home')) {
@@ -264,24 +365,4 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         })
     }
-    function initializeMasonry() {
-        var masonryGrids = document.querySelectorAll(".masonry");
-
-        // Loop through all masonry grids and initialize Masonry
-        masonryGrids.forEach(function (masonryGrid) {
-            var masonryItems = masonryGrid.querySelectorAll(".masonry-item");
-
-            var masonry = new Masonry(masonryGrid, {
-                itemSelector: ".masonry-item",
-                columnWidth: ".masonry-item",
-                percentPosition: true,
-            });
-
-            // Initialize Masonry after images have loaded
-            imagesLoaded(masonryGrid).on("progress", function () {
-                masonry.layout();
-            });
-        });
-    }
-    initializeMasonry();
 })
