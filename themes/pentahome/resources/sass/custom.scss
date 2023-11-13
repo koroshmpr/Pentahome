@@ -22,6 +22,7 @@
 // header
 @import "custom/header";
 @import "custom/button";
+@import "custom/portfolios";
 @import "responsive";
 //menus
 //Slider
@@ -70,12 +71,7 @@
     }
   }
 }
-.title {
-  hr {
-    height: 7px !important;
-    width: 70px !important;
-  }
-}
+
 .custom-height-slide {
   min-height: 50vh !important;
 }
@@ -165,4 +161,21 @@ form[method="POST"] {
     color:white!important;
     transform: translateY(-3px);
   }
+}
+.hover-border{
+  &:before  {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 0;
+    left: 0;
+    width: 3px;
+    background: $primary;
+    transition: height 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important ;
+  }
+    &:hover {
+      &:before {
+        height: 100%;
+      }
+    }
 }

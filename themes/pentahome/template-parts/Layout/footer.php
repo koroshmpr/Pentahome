@@ -31,15 +31,7 @@
                                 شبکه های اجتماعی:
                             </h5>
                             <div class="d-flex align-items-center gap-3">
-                                <?php
-                                if (have_rows('social' , 'option')):
-                                    // Loop through rows.
-                                    while (have_rows('social' , 'option')) : the_row();?>
-                                        <a class="text-primary" href="<?= get_sub_field('link' , 'option')['url']; ?>">
-                                            <?= get_sub_field('icon' , 'option'); ?>
-                                        </a>
-                                    <?php endwhile;
-                                endif; ?>
+                                <?php get_template_part('template-parts/social-media');?>
                             </div>
                         </div>
                         <div class="d-grid d-lg-flex gap-3 align-items-start justify-content-center py-4 py-lg-0">

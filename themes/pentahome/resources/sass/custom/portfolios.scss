@@ -1,0 +1,15 @@
+.categories-hero {
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover!important;
+  height: 500px;
+  .title {
+    backdrop-filter: brightness(0.5);
+  }
+}
+  .title {
+    hr {
+      height: 7px !important;
+      width: 70px !important;
+    }
+  }

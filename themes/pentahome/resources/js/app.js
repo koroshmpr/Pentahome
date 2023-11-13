@@ -114,6 +114,10 @@ $(document).ready(function () {
                     invert: false,
                     sensitivity: 3
                 },
+                keyboard: {
+                    enabled: true,
+                    onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
+                },
                 spaceBetween: 0,
                 releaseOnEdges: true,
                 direction: 'vertical',
@@ -309,6 +313,10 @@ document.addEventListener('DOMContentLoaded', function () {
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
+        },
+        keyboard: {
+            enabled: true,
+            onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
         },
         on: {
             slideChange: function() {

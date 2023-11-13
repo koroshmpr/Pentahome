@@ -107,7 +107,7 @@ header {
 .sub-menu {
   padding-left: 0!important;
   list-style: none;
-  justify-content: center;
+  justify-content: start;
   display: grid;
   grid-column: span 2;
 }
@@ -118,10 +118,14 @@ li.menu-item-has-children {
   display: grid;
   grid-template-columns: repeat(2,auto);
   justify-content: center;
-  margin-left: 30px;
 }
 .menu-item a{
   &:hover {
     color: $primary!important;
+  }
+}
+#navbarHomeMenu ,#navbarMenuMobile {
+  li.menu-item-has-children {
+      margin-left: 30px;
   }
 }

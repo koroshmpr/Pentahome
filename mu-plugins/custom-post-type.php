@@ -9,6 +9,7 @@ function portfolio_post_types()
         'rewrite' => array('slug' => 'portfolio'),
         'has_archive' => true,
         'public' => true,
+        
         'labels' => array(
             'name' => 'نمونه کار',
             'add_new' => 'افزودن نمونه کار',

@@ -2,6 +2,8 @@
 /**
  * Enqueue scripts and styles.
  */
+
+require get_theme_file_path('/inc/search-route.php');
 function amaco_scripts()
 {
 

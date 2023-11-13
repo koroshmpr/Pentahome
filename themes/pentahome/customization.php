@@ -6,9 +6,9 @@ get_header(); ?>
     <div class="row justify-content-center align-self-center">
         <h1 class="text-center display-4 text-primary fw-bold mb-5" data-aos="fade-up"
             data-aos-duration="600">چرا سفارشی سازی؟</h1>
-        <div class="col-lg-10">
+        <div class="col-lg-11 row row-cols-lg-2 text-center">
             <?php while (have_rows('list')): the_row(); ?>
-                <p class="text-secondary py-2" data-aos="fade-up" data-aos-duration="500"
+                <p class="text-secondary p-3 border fs-5 hover-border" data-aos="fade-up" data-aos-duration="500"
                    data-aos-delay="<?php the_row_index(); ?>00">
                     <?= get_sub_field('list_item'); ?>
                 </p>

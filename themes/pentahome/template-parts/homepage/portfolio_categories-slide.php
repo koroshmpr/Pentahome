@@ -17,7 +17,7 @@ foreach ($terms as $category) :
     <div class="swiper-slide product_slide vh-100" data-hash="products">
         <section class="container">
             <div class="row align-items-lg-start align-content-center justify-content-lg-between px-lg-5 gap-4 gap-lg-0">
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                     <div class="d-inline-flex align-items-end gap-4"
                          data-aos-delay="100">
                         <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark">
@@ -31,19 +31,18 @@ foreach ($terms as $category) :
                     <h4 class="text-dark fs-5 mt-1">
                         <?= $manufacturer; ?>
                     </h4>
-                    <div class="mt-4 mb-5">
+                    <div class="my-lg-4 my-3">
                         <?= $category_description; ?>
                     </div>
                     <a href="<?= get_term_link($category) ?>" class="btn-custom ball py-1 ms-3 ms-lg-0">
                         <span class="text-green">مشاهده</span>
                     </a>
                 </div>
-                <div class="col-lg-6 translate-middle-lg-y">
+                <div class="col-lg-7 translate-middle-lg-y">
                     <div class="swiper overflow-visible swiper2">
                         <div class="swiper-wrapper">
                             <?php
                             if ($gallery) {
-                            echo 'image';
                                 // Shuffle the array to randomize the order
                                 shuffle($gallery);
 
@@ -53,7 +52,7 @@ foreach ($terms as $category) :
                                 foreach ($limitedGallery as $image) {
                                     ?>
                                     <div class="swiper-slide">
-                                        <img class="rounded-2 object-fit w-100 bg-warning" height="450"
+                                        <img class="rounded-2 object-fit w-100 bg-warning" height="500"
                                              src="<?php echo esc_url($image['url']); ?>"
                                              alt="<?php echo esc_attr($image['alt']); ?>"/>
                                     </div>

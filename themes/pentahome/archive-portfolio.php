@@ -1,34 +1,39 @@
-<?php get_header(); ?>
+<?php get_header();
+/* Template Name: archive Portfolio */
 
-<section class="container-fluid">
-    <div class="d-inline-flex align-items-end gap-4 ps-3 py-3 title" data-aos="fade-left" data-aos-duration="500">
-        <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark" style="width: 40px">
-        <h1 class="display-1 fw-bold text-secondary">
-            <?= get_the_title('', false); ?>
-        </h1>
+$thumbnail = get_field('thumbnail-image', 111);
+?>
+
+<section>
+    <div class="w-100 object-fit position-relative categories-hero" style="background: url('<?= $thumbnail['url']; ?>');" data-aos="fade-down" data-aos-duration="500">
+        <div class="d-inline-flex align-items-center gap-4 ps-3 py-3 title position-absolute start-0 top-0 bottom-0 end-0">
+            <hr class="text-white mb-4 opacity-100 rounded-pill bg-white" style="width: 40px" data-aos="fade-left"
+                data-aos-duration="500">
+            <h1 class="display-1 fw-bold text-white" data-aos="fade-left" data-aos-duration="500" data-aos-delay="150">نمونه کارها</h1>
+        </div>
     </div>
 
     <div class="container">
-        <ul class="category-list d-flex justify-content-center gap-3 align-items-center list-unstyled">
+        <ul class="category-list d-flex justify-content-lg-center gap-3 my-2 py-1 align-items-center list-unstyled justify-content-start overflow-scroll pe-3 pe-lg-0">
             <?php
             $current_category = get_queried_object(); // Get the current category
             $taxonomy = 'portfolio_categories';
-            // Add the "Select All" option
-            echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
-            echo '<label class="d-flex align-items-start gap-2">';
-            echo '<input type="checkbox" class="category-filter" value="all"> '; // Use "all" as the value for "Select All"
-            echo '<p class="mb-0">همه</p>';
-            echo '</label>';
-            echo '</li>';
             // Query child categories of the current category
             $child_args = array(
                 'taxonomy' => $taxonomy,
                 'parent' => 0, // 0 indicates parent categories
                 'hide_empty' => 0,
             );
-
             $subcategories = get_categories($child_args);
-
+            if ($subcategories) {
+                // Add the "Select All" option
+                echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
+                echo '<label class="d-flex align-items-start gap-2">';
+                echo '<input type="checkbox" class="category-filter" value="all"> '; // Use "all" as the value for "Select All"
+                echo '<p class="mb-0">همه</p>';
+                echo '</label>';
+                echo '</li>';
+            }
             foreach ($subcategories as $subcategory) {
                 $thumbnail_id = get_term_meta($subcategory->term_id, 'thumbnail_id', true);
                 $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
@@ -36,7 +41,7 @@
 
                 echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
                 echo '<label class="d-flex align-items-start gap-2">';
-                echo '<input type="checkbox" checked="false" class="category-filter mt-1" value="' . $subcategory->term_id . '"> ';
+                echo '<input type="checkbox" class="category-filter mt-1" value="' . $subcategory->term_id . '"> ';
                 echo '<p class="mb-0"> ' . $subcategory_name . '</p>';
                 if ($thumbnail_url) {
                     echo '<img class="img-thumbnail ms-auto me-0" width="40" height="40" src="' . $thumbnail_url . '">';

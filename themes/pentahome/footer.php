@@ -7,15 +7,7 @@
                         <?= get_field('logo_footer', 'option'); ?>
                     </a>
                     <div class="d-flex align-items-center gap-3 justify-content-center">
-                        <?php
-                        if (have_rows('social', 'option')):
-                            // Loop through rows.
-                            while (have_rows('social', 'option')) : the_row(); ?>
-                                <a class="text-primary" href="<?= get_sub_field('link', 'option')['url']; ?>">
-                                    <?= get_sub_field('icon', 'option'); ?>
-                                </a>
-                            <?php endwhile;
-                        endif; ?>
+                        <?php get_template_part('template-parts/social-media');?>
                     </div>
                 </div>
                 <div class="col-lg-5 align-self-center px-4 px-lg-5 mx-lg-auto pb-4 pb-lg-0">

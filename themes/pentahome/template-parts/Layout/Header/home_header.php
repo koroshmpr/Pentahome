@@ -11,11 +11,10 @@
                 </button>
                 <div class="offcanvas offcanvas-bottom bg-secondary" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasRightLabel"></h5>
+                        <h5 class="offcanvas-title mx-auto ps-4" id="offcanvasRightLabel"><?php get_template_part('template-parts/logo_brand');?></h5>
                         <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="offcanvas-body d-flex flex-column justify-content-between align-items-center">
-                        <?php get_template_part('template-parts/logo_brand');?>
+                    <div class="offcanvas-body d-flex flex-column justify-content-between align-items-center pt-5">
                         <?php
                         $locations = get_nav_menu_locations();
                         $menu = wp_get_nav_menu_object($locations['headerMenuLocation']);
@@ -34,15 +33,9 @@
 
                         <div class="d-flex gap-5 justify-content-center">
                             <div class="d-flex justify-content-center align-items-center gap-3 pb-3">
-                                <?php
-                                while (have_rows('social', 'option')): the_row() ?>
-                                    <a href="<?= get_sub_field('link')['url'] ?>">
-                                        <?= get_sub_field('icon') ?>
-                                    </a>
-                                <?php
-                                endwhile; ?>
+                                <?php get_template_part('template-parts/social-media');?>
                             </div>
-                            <div class="py-4 py-lg-0">
+                            <div>
                                 <h5 class="text-start mb-0 text-white pb-3">
                                     راه های ارتباطی :
                                 </h5>
