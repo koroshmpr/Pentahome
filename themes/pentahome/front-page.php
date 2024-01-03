@@ -25,7 +25,7 @@ get_header(); ?>
 
         </div>
         <!-- If we need pagination -->
-        <div class="swiper-pagination-custom z-below position-absolute top-50 w-auto h-auto start-0 ms-2"
+        <div class="swiper-pagination-custom z-below position-absolute top-0 bottom-0 d-flex flex-column justify-content-center w-auto h-100 start-0 ms-2"
              data-aos="fade-left" data-aos-duration="700"></div>
     </div>
 

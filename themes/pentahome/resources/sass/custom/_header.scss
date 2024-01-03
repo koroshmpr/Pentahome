@@ -110,6 +110,9 @@ header {
   justify-content: start;
   display: grid;
   grid-column: span 2;
+  a {
+    @extend .fs-6;
+  }
 }
 li.menu-item-has-children {
   button i {

@@ -21,7 +21,7 @@
 
 // header
 @import "custom/header";
-@import "custom/button";
+//@import "custom/button";
 @import "custom/portfolios";
 @import "responsive";
 //menus
@@ -62,12 +62,12 @@
 
 //products
 .product_slide {
-  section {
+  .content-portfolio {
     margin-top: 120px;
 
     hr {
       height: 7px !important;
-      width: 70px !important;
+      width: 60px !important;
     }
   }
 }
@@ -128,12 +128,19 @@ form[method="POST"] {
 }
 
 .heroBg {
-  content: '';
   background: rgba(0, 0, 0, 0.58);
   border-radius: 50%;
+  transition: all 700ms ease-out;
 }
 .heroIntro {
   animation: heroIntro 700ms ease-out forwards 1s;
+}
+.swiper2 {
+  .swiper-slide-visible.swiper-slide-active {
+    .heroBg {
+      @extend .heroIntro
+    }
+  }
 }
 @keyframes heroIntro {
   to {

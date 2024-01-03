@@ -19,7 +19,7 @@ if ($loop->have_posts()) :
         <div class="swiper-slide product_slide vh-100" data-hash="products">
             <section class="container">
                 <div class="row align-items-lg-start align-content-center justify-content-lg-between px-lg-5 gap-4 gap-lg-0">
-                    <div class="col-lg-6">
+                    <div class="content-portfolio col-lg-6">
                         <div class="d-inline-flex align-items-end gap-4"
                              data-aos-delay="100">
                             <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark">

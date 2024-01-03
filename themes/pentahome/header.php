@@ -20,7 +20,7 @@
 <?php
 if (!is_front_page()) {
     get_template_part('template-parts/Layout/Header/side_header');
-    echo '<div class="col-lg-10 overflow-hidden min-vh-100 col-12">';
+    echo '<div class="col-lg-10 overflow-hidden min-vh-100 col-12" style="background-color: #f4f4f4;">';
 } ?>
 
 

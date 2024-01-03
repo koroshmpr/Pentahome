@@ -31,7 +31,6 @@ $(document).ready(function () {
             });
         });
     }
-
     initializeMasonry();
 
     // Attach the event handler to a parent element that exists in the DOM when the page loads
@@ -261,7 +260,6 @@ document.addEventListener('DOMContentLoaded', function () {
     addCollapse('navbarMenuMobile' , 'text-white');
     addCollapse('navbarHomeMenu' , 'text-white');
 
-
     if (!$('body').hasClass('home')) {
         let backToTop = document.getElementById("backToTop");
         backToTop.addEventListener('click', backtoTopHandler)
@@ -310,6 +308,9 @@ document.addEventListener('DOMContentLoaded', function () {
         direction: 'horizontal',
         speed: 1000,
         effect: 'fade',
+        autoplay: {
+            delay: 5000,
+        },
         pagination: {
             el: '.swiper-pagination',
             clickable: true,
@@ -319,13 +320,14 @@ document.addEventListener('DOMContentLoaded', function () {
             onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
         },
         on: {
-            slideChange: function() {
-                $('.heroBg').removeClass('heroIntro');
+            // slideChange: function () {
+            //     $('.heroBg').removeClass('heroIntro');
+            //
+            //     // Add the 'heroIntro' class to the 'heroBg' element in the active slide
+            //     let activeSlide = this.slides[this.activeIndex];
+            //     $(activeSlide).find('.heroBg').addClass('heroIntro');
+            // },
 
-                // Add the 'heroIntro' class to the 'heroBg' element in the active slide
-                let activeSlide = this.slides[this.activeIndex];
-                $(activeSlide).find('.heroBg').addClass('heroIntro');
-            },
             init: function () {
                 let elementsWithNumberGreaterThanOne = document.querySelectorAll('[data-number]:not([data-number="1"])');
                 elementsWithNumberGreaterThanOne.forEach(function (element) {

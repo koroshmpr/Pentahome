@@ -57,6 +57,9 @@
 @include media-breakpoint-up(md) {
 }
 @include media-breakpoint-down(md) {
+  .category-list {
+    overflow-x: scroll;
+  }
   .product-card {
     .modal {
       .modal-body {

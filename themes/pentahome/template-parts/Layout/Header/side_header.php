@@ -1,6 +1,6 @@
 <header class="col-lg-2 position-fixed top-0 bottom-0 end-0 z-top">
     <button class="btn bg-dark bg-opacity-25 d-lg-none mt-2" type="button" data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" data-aos="fade-right">
+            data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" data-aos="fade-right" aria-label="menu offcanvas">
         <div class="hamburger-menu" id="hamburger-menu">
             <div class="menu-bar1 bg-primary"></div>
             <div class="menu-bar2 bg-primary"></div>
@@ -31,7 +31,7 @@
                 <div class="call-button_container d-flex justify-content-center flex-column align-items-center col-12">
                     <a class="call-button bg-primary text-white rounded-circle d-flex justify-content-center align-content-center"
                        href="tel:<?= get_field('phone', 'option'); ?>">
-                        <i class="bi bi-telephone"></i>
+                        <i class="bi bi-telephone" style="line-height: 1.2;"></i>
                     </a>
                     <div class="text-center my-3">برای سفارش تماس بگیرید</div>
                 </div>

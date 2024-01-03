@@ -12,7 +12,7 @@ if (have_rows('products_list')):
         $gallery = get_sub_field('gallery');
         ?>
         <div class="swiper-slide product_slide vh-100" data-hash="products">
-            <section class="container" >
+            <section class="container">
                 <div class="row align-items-start justify-content-start px-5">
                     <div class="col-lg-6">
                         <div class="d-inline-flex align-items-end gap-4" data-aos="fade-in" data-aos-duration="600"

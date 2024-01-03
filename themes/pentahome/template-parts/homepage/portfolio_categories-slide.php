@@ -1,8 +1,9 @@
 <?php
+$selectedCats= get_field('selectec_cats');
 $terms = get_terms('portfolio_categories', array(
     'parent' => 0, // This will retrieve only top-level categories
 ));
-foreach ($terms as $category) :
+foreach ($selectedCats as $category) :
 
     // Fetch and display portfolio item data (title, design, manufacturer, etc.) here
     $title = $category->name;;
@@ -11,18 +12,19 @@ foreach ($terms as $category) :
     $manufacturer = get_field('manufactured_by', $id);
     $gallery = get_field('gallery' , $id);
     $category_description = $category->description;
+    $engTitle = get_field('eng-title' , $id);
 
     // Display the data as needed within the HTML structure
     ?>
-    <div class="swiper-slide product_slide vh-100" data-hash="products">
+    <div class="swiper-slide product_slide min-vh-100" data-hash="products">
         <section class="container">
-            <div class="row align-items-lg-start align-content-center justify-content-lg-between px-lg-5 gap-4 gap-lg-0">
-                <div class="col-lg-5">
-                    <div class="d-inline-flex align-items-end gap-4"
+            <div class="row align-items-lg-center align-content-center justify-content-lg-between gap-4 gap-lg-0">
+                <div class="col-lg-5 content-portfolio">
+                    <div class="d-inline-flex align-items-center gap-3"
                          data-aos-delay="100">
-                        <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark">
-                        <h2 class="display-3 fw-bold text-dark">
-                            <?= $title;  ?>
+                        <hr class="text-dark mb-0 opacity-100 rounded-pill bg-dark">
+                        <h2 class="display-5 fw-bold text-dark">
+                            <?= $title;  ?> <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-6"> <?= $engTitle ?? ''; ?></span>
                         </h2>
                     </div>
                     <h3 class="text-primary fs-5 mt-3">
@@ -54,7 +56,7 @@ foreach ($terms as $category) :
                                     <div class="swiper-slide">
                                         <img class="rounded-2 object-fit w-100 bg-warning" height="500"
                                              src="<?php echo esc_url($image['url']); ?>"
-                                             alt="<?php echo esc_attr($image['alt']); ?>"/>
+                                             alt="<?php echo esc_attr($image['alt']) ?? $title; ?>"/>
                                     </div>
                                     <?php
                                 }
