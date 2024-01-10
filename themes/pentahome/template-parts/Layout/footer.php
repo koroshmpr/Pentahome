@@ -13,7 +13,7 @@
                         if ($menu) :
                             wp_nav_menu(array(
                                 'theme_location' => 'footerLocationOne',
-                                'menu_class' => 'list-unstyled d-flex gap-2 align-items-center flex-wrap',
+                                'menu_class' => 'list-unstyled d-flex gap-2 align-items-center flex-wrap justify-content-center',
                                 'container' => false,
                                 'menu_id' => 'navbarTogglerMenu',
                                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
@@ -25,8 +25,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 ps-lg-5">
-                    <div class="d-flex flex-column justify-content-start align-items-lg-start align-content-center gap-lg-5">
-                        <div class="order-last order-lg-first d-inline-flex gap-3 align-items-center justify-content-center  pb-3 pb-lg-0">
+                    <div class="d-flex flex-column justify-content-start align-items-lg-start align-content-center gap-lg-3">
+                        <div class="order-last order-lg-first d-inline-flex gap-3 align-items-center justify-content-center pb-3 pb-lg-0">
                             <h5 class="text-start">
                                 شبکه های اجتماعی:
                             </h5>
@@ -34,6 +34,12 @@
                                 <?php get_template_part('template-parts/social-media');?>
                             </div>
                         </div>
+                        <address class="d-grid d-lg-flex mb-0 gap-3 align-items-start justify-content-center py-2">
+                            <h5 class="text-start mb-0">
+                                آدرس:
+                            </h5>
+                            <?= get_field('address', 'option'); ?>
+                        </address>
                         <div class="d-grid d-lg-flex gap-3 align-items-start justify-content-center py-4 py-lg-0">
                             <h5 class="text-start mb-0">
                                 راه های تماس:

@@ -21,7 +21,7 @@
                 'container' => false,
                 'menu_id' => 'navbarMenu',
                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
-                'link_class' => 'nav-link fs-5 text-dark', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
+                'link_class' => 'nav-link fs-6 text-dark', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
                 'depth' => 2,
             ));
         endif;
@@ -31,7 +31,7 @@
                 <div class="call-button_container d-flex justify-content-center flex-column align-items-center col-12">
                     <a class="call-button bg-primary text-white rounded-circle d-flex justify-content-center align-content-center"
                        href="tel:<?= get_field('phone', 'option'); ?>">
-                        <i class="bi bi-telephone" style="line-height: 1.2;"></i>
+                        <i class="bi bi-telephone"></i>
                     </a>
                     <div class="text-center my-3">برای سفارش تماس بگیرید</div>
                 </div>
@@ -57,7 +57,7 @@
                 'container' => false,
                 'menu_id' => 'navbarMenuMobile',
                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
-                'link_class' => 'nav-link fs-3 text-white', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
+                'link_class' => 'nav-link fs-4 text-white', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
                 'depth' => 2,
             ));
         endif;

@@ -14,12 +14,13 @@ if ($thumbnail) {
 $pageBanner = $thumbnail_url;
 $args = array(
     'title' => single_cat_title('', false),
+    'content' => category_description(),
     'imgUrl' => $pageBanner,
 );
 get_template_part('template-parts/page_banner', null, $args);
 ?>
     <div class="container">
-        <ul class="category-list d-flex justify-content-md-center gap-3 mb-0 py-4 align-items-center list-unstyled justify-content-start pe-3 pe-lg-0">
+        <ul class="category-list d-flex justify-content-md-center gap-3 mb-0 py-2 py-lg-4 align-items-center list-unstyled justify-content-start pe-3 pe-lg-0">
             <?php
             $current_category = get_queried_object(); // Get the current category
             $taxonomy = 'portfolio_categories';
@@ -34,7 +35,7 @@ get_template_part('template-parts/page_banner', null, $args);
             $subcategories = get_categories($child_args);
             if ($subcategories) {
                 // Add the "Select All" option
-                echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
+                echo '<li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary">';
                 echo '<label class="d-flex align-items-start gap-2">';
                 echo '<input type="checkbox" class="category-filter" value="all"> '; // Use "all" as the value for "Select All"
                 echo '<p class="mb-0">همه</p>';

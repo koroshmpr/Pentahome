@@ -24,7 +24,7 @@ foreach ($selectedCats as $category) :
                          data-aos-delay="100">
                         <hr class="text-dark mb-0 opacity-100 rounded-pill bg-dark">
                         <h2 class="display-5 fw-bold text-dark">
-                            <?= $title;  ?> <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-6"> <?= $engTitle ?? ''; ?></span>
+                            <?= $title; ?> <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-5"> <?= $engTitle ?? ''; ?></span>
                         </h2>
                     </div>
                     <h3 class="text-primary fs-5 mt-3">

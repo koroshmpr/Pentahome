@@ -2,13 +2,15 @@
 
 <?php $gallery = get_field('gallery'); ?>
     <section class="container-fluid">
-        <div class="d-inline-flex align-items-end gap-4 ps-3 py-3 title" data-aos="fade-left" data-aos-duration="500">
-            <hr class="text-dark mb-4 opacity-100 rounded-pill bg-dark" style="width: 40px">
-            <h1 class="display-1 fw-bold text-secondary">
-                <?= the_title(); ?>
-            </h1>
-        </div>
-        <div class="masonry justify-content-center">
+        <?php
+        $args = array(
+            'title' => get_the_title(),
+            'imgUrl' => get_the_post_thumbnail_url(),
+            'content' => get_the_content()
+        );
+        get_template_part('template-parts/page_banner', null, $args);
+        ?>
+        <div class="masonry justify-content-center mt-2">
             <?php
             $i = 0;
             if ($gallery): ?>
