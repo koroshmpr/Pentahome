@@ -10,7 +10,7 @@ get_template_part('template-parts/page_banner', null, $args);
 ?>
 <section class="container-fluid py-5">
         <div class="row align-items-lg-stretch justify-content-center gy-4 pb-4 pb-lg-0">
-            <h2 class="fs-4 text-primary pb-4 col-lg-11">لطفا فرم زیر را پر کنید و یکی از اعضای تیم ما با شما تماس خواهد
+            <h2 data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" class="fs-4 text-primary pb-4 col-lg-11">لطفا فرم زیر را پر کنید و یکی از اعضای تیم ما با شما تماس خواهد
                 گرفت.</h2>
             <div class="col-lg-11 align-self-start px-4 px-lg-5 d-flex row-cols-2 gap-lg-3 gy-3 flex-wrap"
                  data-aos="fade-up"
@@ -20,7 +20,7 @@ get_template_part('template-parts/page_banner', null, $args);
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
                      class="col-lg-4 col-12 align-self-center px-4 px-lg-5 mx-lg-auto py-5">
-                    <h2 class="text-dark text-opacity-50">راه‌های ارتباطی</h2>
+                    <h2 class="text-primary">راه‌های ارتباطی</h2>
                     <div class="pt-3 gap-3">
                         <address class="mb-0 text-primary fs-5">
                             <i class="bi bi-geo-alt fs-4 text-primary me-3"></i>

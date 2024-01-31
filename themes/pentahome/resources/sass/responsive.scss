@@ -1,16 +1,22 @@
 @include media-breakpoint-up(lg) {
+  .categories-hero {
+    height: 500px;
+  }
   .translate-middle-lg-y {
     transform: translateY(40%) !important
   }
   .heroBg {
-    width: 22%;
-    height: 43%;
+    width: 500px;
+    height: 500px;
   }
   .hero-pagination {
     width: 25% !important;
   }
 }
 @include media-breakpoint-down(lg) {
+  .categories-hero {
+    height: 300px;
+  }
   .heroBg {
     width: 70%;
     height: 30%;

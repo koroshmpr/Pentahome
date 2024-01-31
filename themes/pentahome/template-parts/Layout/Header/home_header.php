@@ -60,7 +60,7 @@
                 <div class="d-none d-lg-flex align-items-center gap-3">
                     <?php
                     while (have_rows('social','option')): the_row() ?>
-                        <a href="<?= get_sub_field('link')['url'] ?>">
+                        <a target="_blank" aria-label="<?= get_sub_field('name', 'option')?>"  href="<?= get_sub_field('link')['url'] ?>">
                             <?= get_sub_field('icon') ?>
                         </a>
                     <?php

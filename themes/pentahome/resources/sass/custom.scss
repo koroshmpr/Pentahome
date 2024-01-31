@@ -83,6 +83,9 @@
   background-color: $primary;
   //background: linear-gradient(90deg , $primary , transparent , $primary);
 }
+.gform_validation_errors {
+  display:none!important;
+}
 form[method="POST"] {
   .gform-body {
     .gfield_fileupload_progressbar_progress {

@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let anchor = listItem.children('a');
 
             // Add a button after the anchor link
-            anchor.after(`<button type="button" id="" class="btn btn-link ps-3" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu"><i id="${listItem.attr('id')}-icon" class="${iconClass} bi bi-plus-lg fs-4"></i></button>`);
+            anchor.after(`<button type="button" id="" class="btn btn-link ps-3 py-0" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu"><i id="${listItem.attr('id')}-icon" class="${iconClass} bi bi-plus-lg fs-4"></i></button>`);
 
 
             // Set attributes for Bootstrap collapse

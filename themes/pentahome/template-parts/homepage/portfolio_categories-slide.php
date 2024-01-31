@@ -22,7 +22,7 @@ foreach ($selectedCats as $category) :
                 <div class="col-lg-5 content-portfolio">
                     <div class="d-inline-flex align-items-center gap-3"
                          data-aos-delay="100">
-                        <hr class="text-dark mb-0 opacity-100 rounded-pill bg-dark">
+                        <hr class="text-dark my-0 opacity-100 rounded-pill bg-dark">
                         <h2 class="display-5 fw-bold text-dark">
                             <?= $title; ?> <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-5"> <?= $engTitle ?? ''; ?></span>
                         </h2>
