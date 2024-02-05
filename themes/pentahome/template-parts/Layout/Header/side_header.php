@@ -8,7 +8,7 @@
         </div>
     </button>
     <div class="py-2 d-none d-lg-flex flex-column justify-content-between h-100">
-        <a class="d-flex justify-content-end" href="/">
+        <a class="d-flex justify-content-end" href="<?= home_url() ?>">>
             <?= get_field('logo_footer', 'option'); ?>
         </a>
         <?php
