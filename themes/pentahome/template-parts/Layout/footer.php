@@ -27,10 +27,7 @@
                 </div>
                 <div class="col-lg-6 ps-lg-5">
                     <div class="d-flex flex-column justify-content-start align-items-lg-start align-content-center gap-lg-2">
-                        <h5 class="text-start mb-3 mb-lg-0 text-primary order-first">
-                            راه های ارتباطی:
-                        </h5>
-                        <div class="order-last order-lg-first d-inline-flex gap-3 align-items-center justify-content-center py-2">
+                        <div class="order-last order-lg-first d-inline-flex gap-3 align-items-center justify-content-center py-2 mb-lg-3 ">
                             <div class="d-flex align-items-center gap-3">
                                 <?php get_template_part('template-parts/social-media'); ?>
                             </div>

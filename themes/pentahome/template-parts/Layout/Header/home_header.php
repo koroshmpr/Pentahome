@@ -9,7 +9,7 @@
                         <div class="menu-bar3"></div>
                     </div>
                 </button>
-                <div class="offcanvas offcanvas-bottom bg-secondary" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <div class="offcanvas offcanvas-start bg-secondary" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title mx-auto ps-4" id="offcanvasRightLabel"><?php get_template_part('template-parts/logo_brand');?></h5>
                         <button type="button" class="btn-close bg-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>

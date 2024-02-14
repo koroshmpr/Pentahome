@@ -19,14 +19,14 @@ function amaco_scripts()
 
     wp_enqueue_script('main-js', get_template_directory_uri() . '/public/js/app.js', array(), true);
     $home_page_id = get_option('page_on_front');
-    $selected_cats = get_field('selectec_cats', $home_page_id);
-    $terms = get_terms('portfolio_categories', array(
+    $selected_cats = get_field('selected_cats', $home_page_id);
+    $terms = get_terms('works_categories', array(
         'parent' => 0, // This will retrieve only top-level categories
     ));
 
         $svg_data = array();
     foreach ($selected_cats as $category) {
-        $id = 'portfolio_categories_' . $category->term_id;
+        $id = 'works_categories_' . $category->term_id;
         $svg_label = get_field('svg_label', $id); // Remove $id since you are inside the loop
                 if ($svg_label) {
                     $svg_line = $svg_label['svg_line'];
@@ -48,40 +48,6 @@ function amaco_scripts()
         'nonce' => wp_create_nonce('my-nonce'),
     ));
 }
-//// Get the SVG data from your ACF field.
-//    $svg_data = array();
-//    $args = array(
-//        'post_type' => 'portfolio',
-//        'post_status' => 'publish',
-//        'order' => 'ASC',
-//        'posts_per_page' => -1,
-//        'ignore_sticky_posts' => true
-//    );
-//    $loop = new WP_Query($args);
-//    if ($loop->have_posts()) :
-//        while ($loop->have_posts()) :
-//            $loop->the_post(); // Use the_post() to set up post data
-//            $svg_label = get_field('svg_label');
-//            if ($svg_label && is_array($svg_label)) {
-//                $svg_line = $svg_label['svg_line'];
-//                $svg_fill = $svg_label['svg_fill'];
-//                $svg_data[] = array(
-//                    'line' => $svg_line,
-//                    'fill' => $svg_fill,
-//                );
-//            }
-//        endwhile;
-//        wp_reset_postdata(); // Reset post data
-//    endif;
-//
-//// Pass the SVG data to your JavaScript.
-//    wp_localize_script('main-js', 'svgData', $svg_data);
-//
-//    wp_localize_script('main-js', 'jsData', array(
-//        'root_url' => get_site_url(),
-//        'nonce' => wp_create_nonce('my-nonce'),
-//    ));
-//}
 
 add_action( 'wp_enqueue_scripts', 'amaco_scripts' );
 add_theme_support( 'title-tag' );
@@ -142,39 +108,6 @@ function add_menu_link_class( $classes, $item, $args ) {
 
 add_filter( 'nav_menu_link_attributes', 'add_menu_link_class', 1, 3 );
 
-//add_filter( 'walker_nav_menu_start_el', 'parent_menu_dropdown', 10, 4 );
-//function parent_menu_dropdown( $item_output, $item, $depth, $args ) {
-//
-//	$icon = get_field( 'menu_icon', $item );
-//	if ( ! empty( $item->classes ) && in_array( 'menu-item-object-custom', $item->classes ) ) {
-//		return $item_output . ' <div class="position-relative"> ' . $icon . '</div>';
-//	}
-//
-//	return $item_output;
-//}
-
-//populate gravity form
-/**
- * Populate ACF select field options with Gravity Forms forms
- */
-//function acf_populate_gf_forms_ids( $field ) {
-//	if ( class_exists( 'GFFormsModel' ) ) {
-//		$choices = [];
-//
-//		foreach ( \GFFormsModel::get_forms() as $form ) {
-//			$choices[ $form->id ] = $form->title;
-//		}
-//
-//		$field['choices'] = $choices;
-//	}
-//
-//	return $field;
-//}
-//
-//add_filter( 'acf/load_field/name=gravity_choices', 'acf_populate_gf_forms_ids' );
-
-
-
 // helper function to find a menu item in an array of items
 function wpd_get_menu_item( $field, $object_id, $items ) {
 	foreach ( $items as $item ) {
@@ -186,41 +119,6 @@ function wpd_get_menu_item( $field, $object_id, $items ) {
 	return false;
 }
 
-function the_breadcrumb() {
-	global $post;
-	echo '<ul class="breadcrumb my-0 py-4">';
-	if (!is_home()) {
-		echo '<li class="breadcrumb-item"><a class="text-decoration-none text-semi-light" href="';
-		echo get_option('home');
-		echo '">';
-		echo 'صفحه اصلی';
-		echo '</a></li>';
-        $terms = get_the_terms( $post->ID, 'product_categories' );
-        $termName = $terms[0]->name;
-		if (is_category() || is_single() || $termName) {
-			echo '<li class="breadcrumb-item"><a class="breadcrumb-item text-white text-decoration-none" href="' . $termName->slug . '">';
-            echo $termName;
-			if (is_single()) {
-				echo '</a></li><li class="breadcrumb-item">';
-				the_title();
-				echo '</li>';
-			}
-		} elseif (is_page()) {
-			if($post->post_parent){
-				$anc = get_post_ancestors( $post->ID );
-				$title = get_the_title();
-				foreach ( $anc as $ancestor ) {
-					$output = '<li><a class="breadcrumb-item" href="'.get_permalink($ancestor).'" title="'.get_the_title($ancestor).'">'.get_the_title($ancestor).'</a></li> <li class="separator">/</li>';
-				}
-				echo $output;
-				echo '<strong title="'.$title.'"> '.$title.'</strong>';
-			} else {
-				echo '<li class="breadcrumb-item"><strong> '.get_the_title().'</strong></li>';
-			}
-		}
-	}
-	echo '</ul>';
-}
 /**
  * Disable the emoji's
  */
@@ -273,11 +171,7 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 }
 function custom_post_type_args( $args, $post_type ) {
     // Change 'project' to the slug of your custom post type
-    if ( 'portfolio' === $post_type ) {
-        // Set the with_front parameter to false
-        $args['rewrite']['with_front'] = false;
-    }
-    if ( 'services' === $post_type ) {
+    if ( 'works' === $post_type ) {
         // Set the with_front parameter to false
         $args['rewrite']['with_front'] = false;
     }

@@ -90,8 +90,11 @@ header {
     transform: translateY(0px);
   }
 }
+.current-product_cat-ancestor,
+.current_page_parent,
 .current-menu-item {
-  a {
+  & > .nav-link:first-child {
+    font-weight: bold;
     color : $primary!important;
   }
 }

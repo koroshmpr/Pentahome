@@ -1,4 +1,4 @@
-<a class="navbar-brand m-0" href="<?= home_url() ?>">>
+<a aria-label="home link" class="navbar-brand m-0" href="<?= home_url() ?>">
     <?php
     $site_logo = get_field('site_logo', 'option');
     if (!empty($site_logo)): ?>

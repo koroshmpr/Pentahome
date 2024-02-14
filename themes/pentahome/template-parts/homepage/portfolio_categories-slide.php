@@ -1,13 +1,13 @@
 <?php
-$selectedCats= get_field('selectec_cats');
-$terms = get_terms('portfolio_categories', array(
+$selectedCats= get_field('selected_cats');
+$terms = get_terms('works_categories', array(
     'parent' => 0, // This will retrieve only top-level categories
 ));
 foreach ($selectedCats as $category) :
 
     // Fetch and display portfolio item data (title, design, manufacturer, etc.) here
     $title = $category->name;;
-    $id = 'portfolio_categories_' . $category->term_id;
+    $id = 'works_categories_' . $category->term_id;
     $design = get_field('design_by' , $id);
     $manufacturer = get_field('manufactured_by', $id);
     $gallery = get_field('gallery' , $id);
@@ -54,7 +54,7 @@ foreach ($selectedCats as $category) :
                                 foreach ($limitedGallery as $image) {
                                     ?>
                                     <div class="swiper-slide">
-                                        <img class="rounded-2 object-fit w-100 bg-warning" height="500"
+                                        <img class="rounded-1 object-fit w-100 bg-warning" height="500"
                                              src="<?php echo esc_url($image['url']); ?>"
                                              alt="<?php echo esc_attr($image['alt']) ?? $title; ?>"/>
                                     </div>
