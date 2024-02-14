@@ -25,7 +25,7 @@
                                 'container' => false,
                                 'menu_id' => 'navbarHomeMenu',
                                 'item_class' => 'nav-item ', // Add 'dropdown' class to top-level menu items
-                                'link_class' => 'nav-link text-white fs-4', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
+                                'link_class' => 'nav-link text-white fs-5', // Add 'nav-link' and 'dropdown-toggle' classes to menu item links
                                 'depth' => 2,
                             ));
                         endif;
