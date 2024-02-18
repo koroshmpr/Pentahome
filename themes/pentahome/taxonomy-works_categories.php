@@ -19,48 +19,45 @@ $args = array(
 );
 get_template_part('template-parts/page_banner', null, $args);
 ?>
-<div class="container">
-    <ul class="category-list d-flex justify-content-md-center gap-3 mb-0 py-2 py-lg-4 align-items-center list-unstyled justify-content-start pe-3 pe-lg-0">
-        <?php
-        $current_category = get_queried_object(); // Get the current category
-        $taxonomy = 'works_categories';
+    <div class="container">
+        <ul class="category-list d-flex justify-content-md-center gap-3 mb-0 py-2 py-lg-4 align-items-center list-unstyled justify-content-start pe-3 pe-lg-0">
+            <?php
+            $current_category = get_queried_object(); // Get the current category
+            $taxonomy = 'works_categories';
 
-        // Query child categories of the current category
-        $child_args = array(
-            'taxonomy' => $taxonomy,
-            'child_of' => $current_category->term_id,
-            'hide_empty' => 0,
-        );
+            // Query child categories of the current category
+            $child_args = array(
+                'taxonomy' => $taxonomy,
+                'child_of' => $current_category->term_id,
+                'hide_empty' => 0,
+            );
 
-        $subcategories = get_categories($child_args);
-        if ($subcategories) {
-            // Add the "Select All" option
-            echo '<li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary">';
-            echo '<label class="d-flex align-items-start gap-2">';
-            echo '<input type="checkbox" class="category-filter" value="all"> '; // Use "all" as the value for "Select All"
-            echo '<p class="mb-0">همه</p>';
-            echo '</label>';
-            echo '</li>';
-        }
-        foreach ($subcategories as $subcategory) {
-            $thumbnail_id = get_term_meta($subcategory->term_id, 'thumbnail_id', true);
-            $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
-            $subcategory_name = $subcategory->name;
-
-            echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
-            echo '<label class="d-flex align-items-start gap-2">';
-            echo '<input type="checkbox" class="category-filter" value="' . $subcategory->term_id . '"> ';
-            echo '<p class="mb-0"> ' . $subcategory_name . '</p>';
-            if ($thumbnail_url) {
-                echo '<img class="img-thumbnail ms-auto me-0" width="40" height="40" src="' . $thumbnail_url . '">';
+            $subcategories = get_categories($child_args);
+            if ($subcategories) {
+                // Add the "Select All" option
+                ?>
+                <li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary active">
+                    <label class="d-flex align-items-start gap-2">
+                        <input type="checkbox" class="category-filter" value="all">
+                        <p class="mb-0">همه</p>
+                    </label>
+                </li>
+                <?php
             }
-            echo '</label>';
-            echo '</li>';
-        }
-        ?>
-    </ul>
+            foreach ($subcategories as $subcategory) {
+                $thumbnail_id = get_term_meta($subcategory->term_id, 'thumbnail_id', true);
+                $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
+                $subcategory_name = $subcategory->name; ?>
 
-</div>
+                <li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">
+                    <label class="d-flex align-items-start gap-2">
+                        <input type="checkbox" class="category-filter" value="<?= $subcategory->term_id; ?>">
+                        <p class="mb-0"><?= $subcategory_name; ?></p>
+                    </label>
+                </li>
+            <?php } ?>
+        </ul>
+    </div>
 <?php
 
 // Filter variables

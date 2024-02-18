@@ -88,6 +88,14 @@
 }
 form[method="POST"] {
   .gform-body {
+    .gfield_error {
+      input , textarea {
+        border: 1px solid red!important;
+      }
+    }
+    .gfield_description {
+      display: none;
+    }
     .gfield_fileupload_progressbar_progress {
       background-color:$primary!important;
     }
@@ -104,7 +112,7 @@ form[method="POST"] {
     }
 
     input:not([type="submit"]), textarea {
-      border: 1px solid transparent !important;
+      border-color: transparent;
       border-bottom-color: #0000003b !important;
       padding: 25px 12px !important;
       border-radius: 0 !important;

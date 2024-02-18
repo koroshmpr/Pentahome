@@ -23,29 +23,25 @@ get_template_part('template-parts/page_banner', null, $args);
         $subcategories = get_categories($child_args);
         if ($subcategories) {
             // Add the "Select All" option
-            echo '<li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary">';
-            echo '<label class="d-flex align-items-start gap-2">';
-            echo '<input type="checkbox" class="category-filter" value="all"> '; // Use "all" as the value for "Select All"
-            echo '<p class="mb-0">همه</p>';
-            echo '</label>';
-            echo '</li>';
-        }
+            ?>
+            <li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary active">
+                <label class="d-flex align-items-start gap-2">
+                    <input type="radio" class="category-filter" name="category" value="all">
+                    <p class="mb-0">همه</p>
+                </label>
+            </li>
+        <?php }
         foreach ($subcategories as $subcategory) {
             $thumbnail_id = get_term_meta($subcategory->term_id, 'thumbnail_id', true);
             $thumbnail_url = wp_get_attachment_image_url($thumbnail_id, 'thumbnail');
-            $subcategory_name = $subcategory->name;
-
-            echo '<li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">';
-            echo '<label class="d-flex align-items-start gap-2">';
-            echo '<input type="checkbox" class="category-filter mt-1" value="' . $subcategory->term_id . '"> ';
-            echo '<p class="mb-0"> ' . $subcategory_name . '</p>';
-            if ($thumbnail_url) {
-                echo '<img class="img-thumbnail ms-auto me-0" width="40" height="40" src="' . $thumbnail_url . '">';
-            }
-            echo '</label>';
-            echo '</li>';
-        }
-        ?>
+            $subcategory_name = $subcategory->name; ?>
+            <li class="category-filter__list border border-secondary py-2 rounded-2 px-4 text-secondary">
+                <label class="d-flex align-items-start gap-2">
+                    <input type="radio" class="category-filter mt-1" name="category" value="<?= $subcategory->term_id; ?>">
+                    <p class="mb-0"><?= $subcategory_name; ?></p>
+                </label>
+            </li>
+        <?php } ?>
     </ul>
 </section>
 <?php
@@ -68,7 +64,7 @@ if ($loop->have_posts()) :
             $category_string = implode(',', $category_ids);
             ?>
             <div class="masonry-item col-12 col-md-6 p-2 overflow-hidden product-card"
-                 data-categories="<?php echo $category_string; ?>">
+                 data-categories="<?php echo $category_string; ?>" data-visible="true">
                 <div class="w-100 h-100 position-relative portfolio_card p-0 overflow-hidden">
                     <img class="object-fit w-100 img-fluid bg-warning"
                          src="<?php echo esc_url(the_post_thumbnail_url()); ?>"

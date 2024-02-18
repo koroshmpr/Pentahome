@@ -8,208 +8,202 @@ import 'aos/dist/aos.css';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
+// Declare masonry outside of the $(document).ready() function
+let masonry;
 
 $(document).ready(function () {
-    function initializeMasonry() {
-        var masonryGrids = document.querySelectorAll(".masonry");
-
-        // Loop through all masonry grids and initialize Masonry
-        masonryGrids.forEach(function (masonryGrid) {
-            var masonryItems = masonryGrid.querySelectorAll(".masonry-item");
-
-            var masonry = new Masonry(masonryGrid, {
-                itemSelector: ".masonry-item",
-                columnWidth: ".masonry-item",
-                originLeft: false,
-                transitionDuration: '0.8s',
-                percentPosition: true,
-            });
-
-            // Initialize Masonry after images have loaded
-            imagesLoaded(masonryGrid).on("progress", function () {
-                masonry.layout();
-            });
-        });
-    }
-    initializeMasonry();
-
-    // Attach the event handler to a parent element that exists in the DOM when the page loads
-    var selectAllClicked = false;
-
-    $(document).on('change', '.category-filter', function () {
-        var selectedCategories = [];
-        var isSelectAllChecked = false;
-
-        // Loop through all the checkboxes
-        $('.category-filter').each(function () {
-            var categoryCheckbox = $(this);
-            var categoryLi = categoryCheckbox.closest('li'); // Find the parent <li>
-
-            if (categoryCheckbox.is(':checked')) {
-                var category = categoryCheckbox.val();
-
-                if (category == 'all') {
-                    isSelectAllChecked = true;
-                } else {
-                    selectedCategories.push(category);
-                }
-
-                // Toggle the 'active' class on the parent <li
-                categoryLi.addClass('active');
-            } else {
-                // Remove the 'active' class
-                categoryLi.removeClass('active');
-            }
+    // Initialize Masonry
+    let masonryGrid = document.querySelector(".masonry");
+    if (masonryGrid) {
+        masonry = new Masonry(masonryGrid, {
+            itemSelector: ".masonry-item",
+            columnWidth: ".masonry-item",
+            originLeft: false,
+            transitionDuration: '0.8s',
+            percentPosition: false,
         });
 
-        // Filter the product list based on selected categories
-        $('.product-card').each(function () {
-            var productCategories = $(this).attr('data-categories');
-            var masonryItem = $(this).closest('.masonry-item');
+        // Initialize Masonry after images have loaded
+        imagesLoaded(masonryGrid).on("progress", function () {
+            masonry.layout();
+        });
 
-            if (isSelectAllChecked || selectedCategories.length === 0) {
-                // Show all products when "Select All" is checked or no category is selected
-                masonryItem.show();
-            } else {
-                // Filter products based on selected categories
-                if (productCategories) {
-                    var categories = productCategories.split(',');
-                    var matches = selectedCategories.filter(function (category) {
-                        return categories.indexOf(category) !== -1;
-                    });
+        // Attach the event handler to filter the items
+        $(document).on('change', '.category-filter', function () {
 
-                    if (matches.length > 0) {
-                        masonryItem.show();
-                    } else {
-                        masonryItem.hide();
+            var selectedCategories = [];
+            var isSelectAllChecked = true;
+
+            // Loop through all the checkboxes
+            $('.category-filter').each(function () {
+                var categoryCheckbox = $(this);
+                var categoryLi = categoryCheckbox.closest('li'); // Find the parent <li>
+
+                if (categoryCheckbox.is(':checked')) {
+                    var category = categoryCheckbox.val();
+                    isSelectAllChecked = category == 'all' ? true : false;
+                    if (category != 'all') {
+                        selectedCategories.push(category);
                     }
+                    // Toggle the 'active' class on the parent <li
+                    categoryLi.addClass('active');
+                    categoryLi.siblings('li').removeClass('active');
                 } else {
-                    masonryItem.hide();
-                }
-            }
-        });
-
-        // After filtering, trigger Masonry to re-layout
-        initializeMasonry();
-    });
-});
-    function homeSwiper() {
-        AOS.init()
-        let names = [];
-        $(".swiper1 .swiper-slide section").each(function (i) {
-            names.push($(this).data("name"));
-        });
-
-// aos data attribute looping
-        if ($('body').hasClass('home')) {
-            const swiper = new Swiper('.swiper1', {
-                autoHeight: true, //enable auto height
-                hashNavigation: true,
-                allowTouchMove: false,
-                effect: 'slide',
-                speed: 900,
-                slidesPerView: 'auto',
-                mousewheel: {
-                    invert: false,
-                    sensitivity: 3
-                },
-                keyboard: {
-                    enabled: true,
-                    onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
-                },
-                spaceBetween: 0,
-                releaseOnEdges: true,
-                direction: 'vertical',
-                pagination: {
-                    el: '.swiper-pagination-custom',
-                    type: 'custom',
-                    clickable: true,
-                    renderCustom: function (swiper, current, total) {
-                        var customPaginationHTML = '';
-                        // Add the first pagination item for the slide without SVGs
-                        customPaginationHTML += `
-            <div class="custom-pagination-item" data-index="0">
-                <!-- Render your content for the first slide here -->
-            </div>
-        `;
-                        for (var i = 0; i < total; i++) {
-                            if (Array.isArray(svgData) && svgData[i]) {
-                                var svg_line = svgData[i].line; // Get SVG line data
-                                var svg_fill = svgData[i].fill; // Get SVG fill data
-                                var isActive = i === current - 2; // Subtract 1 to start pagination from index 1
-
-                                // Customize the pagination for each slide
-                                customPaginationHTML += `
-                    <div class="custom-pagination-item ${isActive ? 'active' : ''}" data-index="${i + 1}">
-                        <!-- Render your SVG using the data -->
-                        ${isActive ? svg_fill : svg_line}
-                    </div>
-                `;
-                            }
-                        }
-
-                        // Update the custom pagination container
-                        swiper.pagination.el.innerHTML = customPaginationHTML;
-
-                        // Attach click events or other interactions as needed
-                        var customPaginationItems = swiper.pagination.el.querySelectorAll('.custom-pagination-item');
-                        customPaginationItems.forEach(function (item, index) {
-                            item.addEventListener('click', function () {
-                                // Handle click events for custom pagination items
-                                swiper.slideTo(index); // Go to the corresponding slide, add 1 to index to account for starting at index 1
-                            });
-                        });
-                    },
-                },
-                on: {
-                    init: function () {
-                        let customPagination = document.querySelector('.swiper-pagination-custom');
-                        var isFirstSlide = this.activeIndex === 0;
-                        if (isFirstSlide) {
-                            // Do something specific for the first slide
-                            customPagination.classList.add('opacity-0');
-                        }
-                    },
-                    afterInit: function () {
-                        setTimeout(function () {
-                            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-                            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-                        }, 50)
-                    },
-                    realIndexChange: function () {
-                        let customPagination = document.querySelector('.swiper-pagination-custom');
-                        let activeSlide = this.realIndex;
-                        let slides = this.slides;
-                        if (activeSlide === 0) {
-                            document.body.classList.remove('scrolled');
-                            customPagination.classList.remove('aos-animate')
-                        } else {
-                            document.body.classList.add('scrolled');
-                            customPagination.classList.add('aos-animate');
-                            customPagination.classList.add('opacity-100');
-                        }
-                        setTimeout(function () {
-                            slides.forEach(function (slide, index) {
-                                let elementsWithAos = slide.querySelectorAll('[data-aos]');
-                                elementsWithAos.forEach(function (element) {
-                                    if (index === activeSlide) {
-                                        element.classList.add('aos-animate');
-                                    } else {
-                                        element.classList.remove('aos-animate');
-                                    }
-
-                                })
-                            });
-                        }, 400);
-                        if (activeSlide === slides.length - 1) {
-                            customPagination.classList.remove('aos-animate')
-                        }
-                    },
-
+                    // Remove the 'active' class
+                    categoryLi.removeClass('active');
                 }
             });
-        }
+
+            // Filter the product list based on selected categories
+            $('.product-card').each(function () {
+                var productCategories = $(this).attr('data-categories');
+                var masonryItem = $(this).closest('.masonry-item');
+
+                if (isSelectAllChecked || selectedCategories.length === 0) {
+                    // Show all products when "Select All" is checked or no category is selected
+                    masonryItem.attr('data-visible', 'true').show();
+                } else {
+                    // Filter products based on selected categories
+                    if (productCategories) {
+                        var categories = productCategories.split(',');
+                        var matches = selectedCategories.filter(function (category) {
+                            return categories.indexOf(category) != -1;
+                        });
+
+                        if (matches.length > 0) {
+                            masonryItem.attr('data-visible', 'true').show();
+                        } else {
+                            masonryItem.attr('data-visible', 'false').hide();
+                        }
+                    } else {
+                        masonryItem.attr('data-visible', 'false').hide();
+                    }
+                }
+
+            });
+
+            // Layout Masonry after filtering
+            masonry.layout();
+        });
     }
+
+});
+
+function homeSwiper() {
+    AOS.init()
+    let names = [];
+    $(".swiper1 .swiper-slide section").each(function (i) {
+        names.push($(this).data("name"));
+    });
+
+    // aos data attribute looping
+    if ($('body').hasClass('home')) {
+        const swiper = new Swiper('.swiper1', {
+            autoHeight: true, //enable auto height
+            hashNavigation: true,
+            allowTouchMove: false,
+            effect: 'slide',
+            speed: 900,
+            slidesPerView: 'auto',
+            mousewheel: {
+                invert: false,
+                sensitivity: 3
+            },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
+            },
+            spaceBetween: 0,
+            releaseOnEdges: true,
+            direction: 'vertical',
+            pagination: {
+                el: '.swiper-pagination-custom',
+                type: 'custom',
+                clickable: true,
+                renderCustom: function (swiper, current, total) {
+                    var customPaginationHTML = '';
+                    // Add the first pagination item for the slide without SVGs
+                    customPaginationHTML += `
+                        <div class="custom-pagination-item" data-index="0">
+                            <!-- Render your content for the first slide here -->
+                        </div>`;
+                    for (var i = 0; i < total; i++) {
+                        if (Array.isArray(svgData) && svgData[i]) {
+                            var svg_line = svgData[i].line; // Get SVG line data
+                            var svg_fill = svgData[i].fill; // Get SVG fill data
+                            var isActive = i === current - 2; // Subtract 1 to start pagination from index 1
+
+                            // Customize the pagination for each slide
+                            customPaginationHTML += `
+                            <div class="custom-pagination-item ${isActive ? 'active' : ''}" data-index="${i + 1}">
+                                <!-- Render your SVG using the data -->
+                                ${isActive ? svg_fill : svg_line}
+                            </div>`;
+                        }
+                    }
+
+                    // Update the custom pagination container
+                    swiper.pagination.el.innerHTML = customPaginationHTML;
+
+                    // Attach click events or other interactions as needed
+                    var customPaginationItems = swiper.pagination.el.querySelectorAll('.custom-pagination-item');
+                    customPaginationItems.forEach(function (item, index) {
+                        item.addEventListener('click', function () {
+                            // Handle click events for custom pagination items
+                            swiper.slideTo(index); // Go to the corresponding slide, add 1 to index to account for starting at index 1
+                        });
+                    });
+                },
+            },
+            on: {
+                init: function () {
+                    let customPagination = document.querySelector('.swiper-pagination-custom');
+                    var isFirstSlide = this.activeIndex === 0;
+                    if (isFirstSlide) {
+                        // Do something specific for the first slide
+                        customPagination.classList.add('opacity-0');
+                    }
+                },
+                afterInit: function () {
+                    setTimeout(function () {
+                        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+                    }, 50)
+                },
+                realIndexChange: function () {
+                    let customPagination = document.querySelector('.swiper-pagination-custom');
+                    let activeSlide = this.realIndex;
+                    let slides = this.slides;
+                    if (activeSlide === 0) {
+                        document.body.classList.remove('scrolled');
+                        customPagination.classList.remove('aos-animate')
+                    } else {
+                        document.body.classList.add('scrolled');
+                        customPagination.classList.add('aos-animate');
+                        customPagination.classList.add('opacity-100');
+                    }
+                    setTimeout(function () {
+                        slides.forEach(function (slide, index) {
+                            let elementsWithAos = slide.querySelectorAll('[data-aos]');
+                            elementsWithAos.forEach(function (element) {
+                                if (index === activeSlide) {
+                                    element.classList.add('aos-animate');
+                                } else {
+                                    element.classList.remove('aos-animate');
+                                }
+
+                            })
+                        });
+                    }, 400);
+                    if (activeSlide === slides.length - 1) {
+                        customPagination.classList.remove('aos-animate')
+                    }
+                },
+
+            }
+        });
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
     AOS.init()
