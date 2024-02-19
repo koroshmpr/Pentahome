@@ -11,7 +11,7 @@
             $effect = get_field('effect');
             if ($slides): ?>
                 <?php foreach ($slides as $slide): $i++; ?>
-                    <div class="swiper-slide vh-100">
+                    <div class="swiper-slide vh-50 vh-lg-100">
                         <div class="position-relative">
                             <?php
                             if ($effect == 'line') { ?>
@@ -28,7 +28,7 @@
                                 <br>
                                 <?= $slide['title-2'] ?>
                             </h2>
-                            <img class="vh-100 object-fit w-100" src="<?php echo esc_url($slide['slide-image']['url']); ?>"
+                            <img class="vh-50 vh-lg-100 object-fit w-100" src="<?php echo esc_url($slide['slide-image']['url']); ?>"
                                  alt="<?php echo esc_attr($slide['slide-image']['alt']); ?>"/>
                         </div>
                     </div>

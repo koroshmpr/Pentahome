@@ -161,7 +161,7 @@ form[method="POST"] {
   }
 }
 .title , .sub-menu , .category-filter__list{
-  transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
+  transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
 }
 .category-filter__list {
   position: relative;

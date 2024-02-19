@@ -13,7 +13,25 @@
     width: 25% !important;
   }
 }
+.vh-lg-100 {
+  height:100vh!important
+}
+.vh-lg-50 {
+  height:50vh!important
+}
+.portfolio-slider__image {
+  height: 500px;
+}
 @include media-breakpoint-down(lg) {
+  .min-vh-50 {
+    min-height: 50vh!important;
+  }
+  .portfolio-slider__image {
+    height: 300px;
+  }
+  .vh-50 {
+    height:50vh!important
+  }
   .categories-hero {
     height: 300px;
   }

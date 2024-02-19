@@ -16,7 +16,7 @@ foreach ($selectedCats as $category) :
 
     // Display the data as needed within the HTML structure
     ?>
-    <div class="swiper-slide product_slide min-vh-100" data-hash="products">
+    <div class="swiper-slide product_slide min-vh-100 min-vh-50" data-hash="products">
         <section class="container">
             <div class="row align-items-lg-center align-content-center justify-content-lg-between gap-4 gap-lg-0">
                 <div class="col-lg-5 content-portfolio">
@@ -54,7 +54,7 @@ foreach ($selectedCats as $category) :
                                 foreach ($limitedGallery as $image) {
                                     ?>
                                     <div class="swiper-slide">
-                                        <img class="rounded-1 object-fit w-100 bg-warning" height="500"
+                                        <img class="portfolio-slider__image rounded-1 object-fit w-100 bg-warning" height="500"
                                              src="<?php echo esc_url($image['url']); ?>"
                                              alt="<?php echo esc_attr($image['alt']) ?? $title; ?>"/>
                                     </div>

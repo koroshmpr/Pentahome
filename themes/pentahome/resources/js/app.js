@@ -30,14 +30,13 @@ $(document).ready(function () {
 
         // Attach the event handler to filter the items
         $(document).on('change', '.category-filter', function () {
-
-            var selectedCategories = [];
-            var isSelectAllChecked = true;
+            let selectedCategories = [];
+            let isSelectAllChecked = true;
 
             // Loop through all the checkboxes
             $('.category-filter').each(function () {
-                var categoryCheckbox = $(this);
-                var categoryLi = categoryCheckbox.closest('li'); // Find the parent <li>
+                let categoryCheckbox = $(this);
+                let categoryLi = categoryCheckbox.closest('li'); // Find the parent <li>
 
                 if (categoryCheckbox.is(':checked')) {
                     var category = categoryCheckbox.val();
@@ -56,8 +55,8 @@ $(document).ready(function () {
 
             // Filter the product list based on selected categories
             $('.product-card').each(function () {
-                var productCategories = $(this).attr('data-categories');
-                var masonryItem = $(this).closest('.masonry-item');
+                let productCategories = $(this).attr('data-categories');
+                let masonryItem = $(this).closest('.masonry-item');
 
                 if (isSelectAllChecked || selectedCategories.length === 0) {
                     // Show all products when "Select All" is checked or no category is selected
@@ -65,8 +64,9 @@ $(document).ready(function () {
                 } else {
                     // Filter products based on selected categories
                     if (productCategories) {
-                        var categories = productCategories.split(',');
-                        var matches = selectedCategories.filter(function (category) {
+                        let categories = productCategories.split(',');
+                        console.log(categories)
+                        let matches = selectedCategories.filter(function (category) {
                             return categories.indexOf(category) != -1;
                         });
 
@@ -79,16 +79,12 @@ $(document).ready(function () {
                         masonryItem.attr('data-visible', 'false').hide();
                     }
                 }
-
             });
-
             // Layout Masonry after filtering
             masonry.layout();
         });
     }
-
 });
-
 function homeSwiper() {
     AOS.init()
     let names = [];

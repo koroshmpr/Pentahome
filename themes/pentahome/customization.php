@@ -26,6 +26,19 @@ get_template_part('template-parts/page_banner', null, $args);
         <div class="col-11 col-lg-6 p-lg-4 p-3" data-aos="zoom-in"
              data-aos-duration="500">
             <?php echo do_shortcode('[gravityform id="'. get_field('form_id') .'" title="false" description="false" ajax="true"]'); ?>
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    var phoneField = document.getElementById('input_2_5'); // Replace 'input_1_4' with the actual ID of your phone number field
+
+                    phoneField.addEventListener('input', function(event) {
+                        // Remove any non-numeric characters from the input value
+                        var cleanedValue = this.value.replace(/\D/g, '');
+
+                        // Update the field value with the cleaned numeric value
+                        this.value = cleanedValue;
+                    });
+                });
+            </script>
         </div>
     </div>
 </section>

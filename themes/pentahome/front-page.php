@@ -9,7 +9,7 @@ get_header(); ?>
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
             <!-- Slides -->
-            <div class="swiper-slide vh-100" data-hash="Slides">
+            <div class="swiper-slide vh-50 vh-lg-100" data-hash="Slides">
                 <?php
                 //    <!--Hero -->
                 get_template_part('template-parts/homepage/hero_slider');
