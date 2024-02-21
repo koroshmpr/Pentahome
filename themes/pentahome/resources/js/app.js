@@ -65,7 +65,6 @@ $(document).ready(function () {
                     // Filter products based on selected categories
                     if (productCategories) {
                         let categories = productCategories.split(',');
-                        console.log(categories)
                         let matches = selectedCategories.filter(function (category) {
                             return categories.indexOf(category) != -1;
                         });

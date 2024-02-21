@@ -7,7 +7,7 @@
                         <?= get_field('logo_footer', 'option'); ?>
                     </a>
                     <div class="d-flex align-items-center gap-3 justify-content-center">
-                        <?php get_template_part('template-parts/social-media');?>
+                        <?php get_template_part('template-parts/social-media'); ?>
                     </div>
                 </div>
                 <div class="col-lg-5 align-self-center px-4 px-lg-5 mx-lg-auto pb-4 pb-lg-0">
@@ -16,12 +16,8 @@
                             <i class="bi bi-geo-alt fs-4 text-primary me-3"></i>
                             <?= get_field('address', 'option'); ?>
                         </address>
-                        <?php $phone = get_field('phone', 'option'); ?>
+                        <?php get_template_part('template-parts/phones'); ?>
                         <?php $email = get_field('email', 'option'); ?>
-                        <a href="tel:<?= $phone; ?>">
-                            <i class="bi bi-telephone fs-4 text-primary me-3"></i>
-                            <?= $phone; ?>
-                        </a>
                         <a href="mailto:<?= $email; ?>">
                             <i class="bi bi-envelope fs-4 text-primary me-3"></i>
                             <?= $email; ?>
@@ -30,7 +26,6 @@
                 </div>
             </div>
         </div>
-
     </footer>
     <?php get_template_part('template-parts/backto-top');
     echo '</div>';

@@ -37,12 +37,7 @@
                             <?= get_field('address', 'option'); ?>
                         </address>
                         <ul class="list-unstyled mb-0 d-flex flex-column align-items-start justify-content-start gap-2">
-                            <li class="d-inline-flex gap-3 align-items-center">
-                                <i class="bi bi-telephone fs-4 text-primary"></i>
-                                <a class="" href="tel:<?= get_field('phone', 'option'); ?>">
-                                    <?= get_field('phone', 'option'); ?>
-                                </a>
-                            </li>
+                            <?php get_template_part('template-parts/phones'); ?>
                             <li class="d-inline-flex gap-3 align-items-center">
                                 <i class="bi bi-envelope fs-4 text-primary"></i>
                                 <a class="" href="mailto:<?= get_field('email', 'option'); ?>">
