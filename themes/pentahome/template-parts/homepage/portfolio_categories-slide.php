@@ -1,5 +1,5 @@
 <?php
-$selectedCats= get_field('selected_cats');
+$selectedCats = get_field('selected_cats');
 $terms = get_terms('works_categories', array(
     'parent' => 0, // This will retrieve only top-level categories
 ));
@@ -8,11 +8,11 @@ foreach ($selectedCats as $category) :
     // Fetch and display portfolio item data (title, design, manufacturer, etc.) here
     $title = $category->name;;
     $id = 'works_categories_' . $category->term_id;
-    $design = get_field('design_by' , $id);
+    $design = get_field('design_by', $id);
     $manufacturer = get_field('manufactured_by', $id);
-    $gallery = get_field('gallery' , $id);
+    $gallery = get_field('gallery', $id);
     $category_description = $category->description;
-    $engTitle = get_field('eng-title' , $id);
+    $engTitle = get_field('eng-title', $id);
 
     // Display the data as needed within the HTML structure
     ?>
@@ -24,19 +24,28 @@ foreach ($selectedCats as $category) :
                          data-aos-delay="100">
                         <hr class="text-dark my-0 opacity-100 rounded-pill bg-dark">
                         <h2 class="display-5 fw-bold text-dark">
-                            <?= $title; ?> <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-5"> <?= $engTitle ?? ''; ?></span>
+                            <?= $title;
+                            if ($engTitle) { ?>
+                                <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-5"> <?= $engTitle; ?></span>
+                            <?php } ?>
                         </h2>
                     </div>
-                    <h3 class="text-primary fs-5 mt-3">
-                        <?= $design; ?>
-                    </h3>
-                    <h4 class="text-dark fs-5 mt-1">
-                        <?= $manufacturer; ?>
-                    </h4>
-                    <div class="my-lg-4 my-3">
-                        <?= $category_description; ?>
-                    </div>
-                    <a href="<?= get_term_link($category) ?>" class="btn-custom ball py-1 ms-3 ms-lg-0">
+                    <?php if ($design) { ?>
+                        <h3 class="text-primary fs-5 mt-3">
+                            <?= $design; ?>
+                        </h3>
+                    <?php }
+                    if ($manufacturer) { ?>
+                        <h4 class="text-dark fs-5 mt-1">
+                            <?= $manufacturer; ?>
+                        </h4>
+                    <?php }
+                    if ($category_description) { ?>
+                        <div class="my-lg-4 my-3">
+                            <?= $category_description; ?>
+                        </div>
+                    <?php } ?>
+                    <a href="<?= get_term_link($category) ?? ''; ?>" class="btn-custom ball py-1 ms-3 ms-lg-0">
                         <span class="text-green">مشاهده</span>
                     </a>
                 </div>
@@ -54,7 +63,8 @@ foreach ($selectedCats as $category) :
                                 foreach ($limitedGallery as $image) {
                                     ?>
                                     <div class="swiper-slide">
-                                        <img class="portfolio-slider__image rounded-1 object-fit w-100 bg-warning" height="500"
+                                        <img class="portfolio-slider__image rounded-1 object-fit w-100 bg-warning"
+                                             height="500"
                                              src="<?php echo esc_url($image['url']); ?>"
                                              alt="<?php echo esc_attr($image['alt']) ?? $title; ?>"/>
                                     </div>
