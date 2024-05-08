@@ -41,20 +41,6 @@ header {
     transition: all ease-in-out 0.3s;
   }
 }
-
-.scrolled {
-  .navbar-brand {
-    #brand, #slogan {
-      opacity: 0 !important;
-    }
-
-    #logo {
-      fill: $white;
-      transform: translateX(-40%);
-    }
-  }
-}
-
 @keyframes move {
   0% {
     transform: translateX(0px);

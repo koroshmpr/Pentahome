@@ -1,7 +1,7 @@
-<div class="px-0 mx-0 container-fluid<?= is_front_page() ? ' swiper-slide' : ' ' ?> custom-height-slide row align-items-end"
+<div class="px-0 mx-0 container-fluid<?= is_front_page() ? ' swiper-slide pb-5 pb-lg-0' : ' ' ?> custom-height-slide row align-items-lg-end align-items-start"
      data-hash="footer">
-    <div class="bg-warning py-5">
-        <div class="h-100 d-flex justify-content-center align-items-center">
+    <div class="bg-warning pt-1 pb-5 py-lg-0 mt-4 mt-lg-0 h-100">
+        <div class="h-100 d-flex justify-content-center align-items-lg-center align-items-start pb-3 pb-lg-0">
             <div class="row w-100">
                 <div class="col-lg-6">
                     <div class="d-flex align-items-center justify-content-start flex-column gap-lg-3">

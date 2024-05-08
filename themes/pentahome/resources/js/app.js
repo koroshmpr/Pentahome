@@ -84,19 +84,24 @@ $(document).ready(function () {
         });
     }
 });
-function homeSwiper() {
-    AOS.init()
-    let names = [];
-    $(".swiper1 .swiper-slide section").each(function (i) {
-        names.push($(this).data("name"));
-    });
+// function homeSwiper() {
+//     AOS.init()
+let names = [];
+$(".swiper1 .swiper-slide section").each(function (i) {
+    names.push($(this).data("name"));
+});
 
-    // aos data attribute looping
+// aos data attribute looping
+
+// }
+
+document.addEventListener('DOMContentLoaded', function () {
+    AOS.init()
     if ($('body').hasClass('home')) {
         const swiper = new Swiper('.swiper1', {
             autoHeight: true, //enable auto height
             hashNavigation: true,
-            allowTouchMove: false,
+            allowTouchMove: true,
             effect: 'slide',
             speed: 900,
             slidesPerView: 'auto',
@@ -167,6 +172,11 @@ function homeSwiper() {
                 },
                 realIndexChange: function () {
                     let customPagination = document.querySelector('.swiper-pagination-custom');
+                    if (window.innerWidth > 1024) {
+                        customPagination.setAttribute('data-aos', 'fade-left');
+                    } else if (window.innerWidth <= 1024) {
+                        $(customPagination).attr('data-aos', 'fade-top');
+                    }
                     let activeSlide = this.realIndex;
                     let slides = this.slides;
                     if (activeSlide === 0) {
@@ -198,16 +208,13 @@ function homeSwiper() {
             }
         });
     }
-}
 
-document.addEventListener('DOMContentLoaded', function () {
-    AOS.init()
-    function addCollapse(menuId , iconClass) {
+    function addCollapse(menuId, iconClass) {
         // Select the menu by its ID
         let menu = $(`#${menuId}`);
 
         // Find <li> elements with the "menu-item-has-children" class
-        menu.find('li.menu-item-has-children').each(function() {
+        menu.find('li.menu-item-has-children').each(function () {
             let listItem = $(this);
 
             // Find the anchor link
@@ -223,7 +230,7 @@ document.addEventListener('DOMContentLoaded', function () {
             submenu.addClass('collapse');
 
             // Prevent the button from following the link
-            anchor.next('button').on('click', function(event) {
+            anchor.next('button').on('click', function (event) {
                 event.preventDefault();
                 toggleIcon(listItem.attr('id'));
             });
@@ -245,9 +252,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // Call the function with the menu ID you want to modify
-    addCollapse('navbarMenu' ,'text-secondary');
-    addCollapse('navbarMenuMobile' , 'text-white');
-    addCollapse('navbarHomeMenu' , 'text-white');
+    addCollapse('navbarMenu', 'text-secondary');
+    addCollapse('navbarMenuMobile', 'text-white');
+    addCollapse('navbarHomeMenu', 'text-white');
 
     if (!$('body').hasClass('home')) {
         let backToTop = document.getElementById("backToTop");
@@ -272,26 +279,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
         hamburgerMenu.addEventListener("click", toggleNav);
     }
-    function handleResponsive() {
-        // Check the screen size or viewport dimensions
-        if (window.innerWidth > 1024) {
-            homeSwiper();
-        } else {
-            $('.home main > div').removeClass('swiper')
-            $('.home main > div > div').removeClass('swiper-wrapper')
-            $('.home main > div > div > div').removeClass('swiper-slide')
-            let disableAnimationElements = document.querySelectorAll('[data-aos-disable]');
-            disableAnimationElements.forEach(function (element) {
-                element.removeAttribute('data-aos');
-                element.removeAttribute('data-aos-duration');
-            });
-        }
-    }
+    // function handleResponsive() {
+    //     // Check the screen size or viewport dimensions
+    //     if (window.innerWidth > 1024) {
+    //         homeSwiper();
+    //     } else {
+    //         $('.home main > div').removeClass('swiper')
+    //         $('.home main > div > div').removeClass('swiper-wrapper')
+    //         $('.home main > div > div > div').removeClass('swiper-slide')
+    //         let disableAnimationElements = document.querySelectorAll('[data-aos-disable]');
+    //         disableAnimationElements.forEach(function (element) {
+    //             element.removeAttribute('data-aos');
+    //             element.removeAttribute('data-aos-duration');
+    //         });
+    //     }
+    // }
 
 // Event listener for the resize event
-    window.addEventListener('resize', handleResponsive);
+//     window.addEventListener('resize', handleResponsive);
 // Initial call to handleResponsive to execute the code on page load
-    handleResponsive();
+//     handleResponsive();
     // portfolio slider
     const swiperSilder = new Swiper('.swiper2', {
         direction: 'horizontal',
