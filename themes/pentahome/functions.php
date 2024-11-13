@@ -8,7 +8,7 @@ function amaco_scripts()
 {
 
     //    <!-- Icons -->
-    wp_enqueue_style('bootstrap-icons', get_template_directory_uri() . '/public/fonts/bootstrap/bootstrap-icons.css');
+//    wp_enqueue_style('bootstrap-icons', get_template_directory_uri() . '/public/fonts/bootstrap/bootstrap-icons.css');
 //    wp_enqueue_style('font', get_template_directory_uri() . '/public/fonts/YekanBakh/fontface.css', array());
     wp_enqueue_style('font', get_template_directory_uri() . '/public/fonts/Dibaj/fontface.css', array());
 //    wp_enqueue_style('IRANSansFaNum', get_template_directory_uri() . '/public/fonts/IRANSansFaNum/fontface.css', array());
@@ -18,6 +18,7 @@ function amaco_scripts()
 
 
     wp_enqueue_script('main-js', get_template_directory_uri() . '/public/js/app.js', array(), true);
+    wp_enqueue_script('custom-js', get_template_directory_uri() . '/public/js/custom-js.js', array(), null, true);
     $home_page_id = get_option('page_on_front');
     $selected_cats = get_field('selected_cats', $home_page_id);
     $terms = get_terms('works_categories', array(
@@ -178,3 +179,7 @@ function custom_post_type_args( $args, $post_type ) {
     return $args;
 }
 add_filter( 'register_post_type_args', 'custom_post_type_args', 10, 2 );
+
+add_filter( 'http_request_timeout', function( $timeout ) {
+    return 30; // Increase timeout to 30 seconds or more
+} );

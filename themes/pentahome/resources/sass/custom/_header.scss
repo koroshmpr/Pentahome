@@ -86,7 +86,7 @@ header {
 }
 .current_page_item {
   font-weight: bold;
-  i{
+  svg{
   color : $primary!important;
   }
   a {
@@ -104,12 +104,17 @@ header {
   }
 }
 li.menu-item-has-children {
-  button i {
+  button svg {
     transition: all 0.85s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
   }
   display: grid;
   grid-template-columns: repeat(2,auto);
   justify-content: center;
+}
+body.home {
+  .btn-link svg {
+      color:white;
+  }
 }
 .menu-item a{
   &:hover {

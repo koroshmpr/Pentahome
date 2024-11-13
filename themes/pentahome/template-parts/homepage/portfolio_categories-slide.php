@@ -26,7 +26,7 @@ foreach ($selectedCats as $category) :
                         <h2 class="display-5 fw-bold text-dark">
                             <?= $title;
                             if ($engTitle) { ?>
-                                <span class="text-uppercase badge bg-primary text-white text-opacity-75 fs-5"> <?= $engTitle; ?></span>
+                                <span class="text-uppercase badge bg-primary text-white fs-4"> <?= $engTitle; ?></span>
                             <?php } ?>
                         </h2>
                     </div>
@@ -61,11 +61,14 @@ foreach ($selectedCats as $category) :
                                 $limitedGallery = array_slice($gallery, 0, 6);
 
                                 foreach ($limitedGallery as $image) {
+                                    // Get the thumbnail URL for this image
+                                    $thumbnail_url = wp_get_attachment_image_src($image['ID'], 'large'); // Replace 'thumbnail' with your preferred size
+                                    $thumbnail_url = $thumbnail_url ? $thumbnail_url[0] : $image['url']; // Fallback to original if thumbnail not available
                                     ?>
                                     <div class="swiper-slide">
-                                        <img class="portfolio-slider__image rounded-1 object-fit w-100 bg-warning"
+                                        <img class="portfolio-slider__image lazy rounded-1 object-fit w-100 bg-warning"
                                              height="500"
-                                             src="<?php echo esc_url($image['url']); ?>"
+                                             src="<?php echo esc_url($thumbnail_url); ?>"
                                              alt="<?php echo esc_attr($image['alt']) ?? $title; ?>"/>
                                     </div>
                                     <?php

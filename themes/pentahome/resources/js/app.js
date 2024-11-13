@@ -216,38 +216,48 @@ document.addEventListener('DOMContentLoaded', function () {
         // Find <li> elements with the "menu-item-has-children" class
         menu.find('li.menu-item-has-children').each(function () {
             let listItem = $(this);
-
-            // Find the anchor link
             let anchor = listItem.children('a');
 
-            // Add a button after the anchor link
-            anchor.after(`<button type="button" id="" class="btn btn-link ps-3 py-0" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu"><i id="${listItem.attr('id')}-icon" class="${iconClass} bi bi-plus-lg fs-4"></i></button>`);
-
+            // Add a button after the anchor link with both SVG icons (initially hiding the minus icon)
+            anchor.after(`
+        <button id="" type="button" class="btn btn-link ps-3 py-0" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu">
+            <svg id="${listItem.attr('id')}-plus" width="20" height="20" fill="currentColor" class="bi bi-plus-lg fs-4" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
+            </svg>
+            <svg id="${listItem.attr('id')}-minus" width="20" height="20" fill="currentColor" class="bi bi-dash-lg fs-4 d-none" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8"/>
+            </svg>
+        </button>
+    `);
 
             // Set attributes for Bootstrap collapse
             let submenu = listItem.find('ul.sub-menu');
             submenu.attr('id', listItem.attr('id') + '-submenu');
             submenu.addClass('collapse');
 
-            // Prevent the button from following the link
+            // Prevent the button from following the link and toggle icons on click
             anchor.next('button').on('click', function (event) {
                 event.preventDefault();
                 toggleIcon(listItem.attr('id'));
             });
 
             function toggleIcon(listItemId) {
-                const iconElement = $(`#${listItemId}-icon`);
+                const plusIcon = $(`#${listItemId}-plus`);
+                const minusIcon = $(`#${listItemId}-minus`);
                 const submenuElement = $(`#${listItemId}-submenu`);
 
-                if (iconElement.hasClass('bi-plus-lg')) {
-                    iconElement.removeClass('bi-plus-lg').addClass('bi-dash-lg');
-                    submenuElement.collapse('show');
-                } else {
-                    iconElement.removeClass('bi-dash-lg').addClass('bi-plus-lg');
+                if (submenuElement.hasClass('show')) {
+                    plusIcon.toggleClass('d-none');
+                    minusIcon.toggleClass('d-none');
                     submenuElement.collapse('hide');
+                } else {
+                    plusIcon.toggleClass('d-none');
+                    minusIcon.toggleClass('d-none');
+                    submenuElement.collapse('show');
                 }
             }
         });
+
     }
 
 
