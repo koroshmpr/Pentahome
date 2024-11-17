@@ -10,7 +10,7 @@ get_template_part('template-parts/page_banner', null, $args);
 ?>
 <section class="container-fluid py-5">
         <div class="row align-items-lg-stretch justify-content-center gy-4 pb-4 pb-lg-0">
-            <h2 data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" class="fs-4 text-primary pb-4 col-lg-11">لطفا فرم زیر را پر کنید و یکی از اعضای تیم ما با شما تماس خواهد
+            <h2 data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200" class="fs-4 text-primary pb-4 col-lg-11">لطفا فرم زیر را پر کنید و یکی از اعضای تیم ما با شما تماس خواهد
                 گرفت.</h2>
             <div class="col-lg-11 align-self-start px-4 px-lg-5 d-flex row-cols-2 gap-lg-3 gy-3 flex-wrap"
                  data-aos="fade-up"

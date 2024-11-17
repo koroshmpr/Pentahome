@@ -1,14 +1,12 @@
 <header class="col-lg-2 position-fixed top-0 bottom-0 end-0 z-top">
-    <button class="btn bg-dark bg-opacity-25 d-lg-none mt-2" type="button" data-bs-toggle="offcanvas"
+    <button class="btn hamburger-menu bg-dark bg-opacity-25 d-lg-none mt-2" type="button" data-bs-toggle="offcanvas" id="hamburger-menu"
             data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" data-aos="fade-right" aria-label="menu offcanvas">
-        <div class="hamburger-menu" id="hamburger-menu">
             <div class="menu-bar1 bg-primary"></div>
             <div class="menu-bar2 bg-primary"></div>
             <div class="menu-bar3 bg-primary"></div>
-        </div>
     </button>
     <div class="py-2 d-none d-lg-flex flex-column justify-content-between h-100">
-        <a class="d-flex justify-content-end" href="<?= home_url() ?>">
+        <a aria-label="back to home page" class="d-flex justify-content-end" href="<?= esc_url(get_home_url()); ?>">
             <?= get_field('logo_footer', 'option'); ?>
         </a>
         <?php
@@ -48,7 +46,7 @@
         <h5 class="offcanvas-title mx-auto ps-4" id="offcanvasRightLabel"><?php get_template_part('template-parts/logo_brand');?></h5>
         <button type="button" class="btn-close fs-3 bg-white bg-opacity-50" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body d-flex flex-column justify-content-between">
+    <div class="offcanvas-body d-flex flex-column overflow-hidden justify-content-between">
         <?php
         $locations = get_nav_menu_locations();
         $menu = wp_get_nav_menu_object($locations['headerMenuLocation']);

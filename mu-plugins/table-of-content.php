@@ -23,7 +23,8 @@ function get_toc($content, $from_tag = 1, $to_tag = 6)
 
     // parse toc
     ob_start();
-    echo "<div class='table-of-contents'>";
+    echo "<div class='table-of-contents bg-primary bg-opacity-10 shadow-sm p-3 position-sticky top-0'>";
+    echo '<p class="fw-bold fs-4 mt-3 mb-4 text-primary">آنچه در این مطلب می‌خوانید!</p>';
     parse_toc($headings, 0, 0);
     echo "</div>";
     return ob_get_clean();
@@ -61,7 +62,7 @@ function parse_toc($headings, $index, $recursive_counter)
     if ($last_element == NULL) echo "<ul>";
     if ($last_element != NULL && $last_element["tag"] < $tag) {
         for ($i = 0; $i < $tag - $last_element["tag"]; $i++) {
-            echo "<ul class='ms-2'>";
+            echo "<ul class='ps-1'>";
         }
     }
 

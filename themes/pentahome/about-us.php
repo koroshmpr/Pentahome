@@ -7,7 +7,7 @@ get_header(); ?>
          <div class="d-flex gap-3 pb-4 align-items-center">
              <hr class="text-white opacity-100 rounded-pill bg-white" style="width: 40px" data-aos="fade-left"
                  data-aos-duration="500">
-             <h1 class="display-1 fw-bold text-white" data-aos="fade-left" data-aos-duration="500" data-aos-delay="150">
+             <h1 class="display-1 fw-bold text-white" data-aos="fade-right" data-aos-duration="500" data-aos-delay="150">
                  <?= get_the_title(); ?>
              </h1>
          </div>

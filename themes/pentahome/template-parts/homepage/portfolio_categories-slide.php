@@ -16,8 +16,7 @@ foreach ($selectedCats as $category) :
 
     // Display the data as needed within the HTML structure
     ?>
-    <div class="swiper-slide product_slide min-vh-100 min-vh-50" data-hash="products">
-        <section class="container">
+    <article class="swiper-slide container product_slide min-vh-100 min-vh-50" data-hash="products">
             <div class="row align-items-lg-center align-content-center justify-content-lg-between gap-2 gap-lg-0">
                 <div class="col-lg-5 content-portfolio">
                     <div class="d-inline-flex align-items-center gap-3"
@@ -83,8 +82,7 @@ foreach ($selectedCats as $category) :
                     </div>
                 </div>
             </div>
-        </section>
-    </div>
+    </article>
 <?php
 endforeach;
 ?>

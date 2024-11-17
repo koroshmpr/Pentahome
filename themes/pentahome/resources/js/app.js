@@ -1,10 +1,9 @@
 require('./bootstrap');
 import $ from 'jquery';
-// import 'swiper/css';
 import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
+// import 'swiper/css/bundle';
 import AOS from 'aos';
-import 'aos/dist/aos.css';
+// import 'aos/dist/aos.css';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
 
@@ -84,16 +83,10 @@ $(document).ready(function () {
         });
     }
 });
-// function homeSwiper() {
-//     AOS.init()
 let names = [];
 $(".swiper1 .swiper-slide section").each(function (i) {
     names.push($(this).data("name"));
 });
-
-// aos data attribute looping
-
-// }
 
 document.addEventListener('DOMContentLoaded', function () {
     AOS.init()
@@ -173,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 realIndexChange: function () {
                     let customPagination = document.querySelector('.swiper-pagination-custom');
                     if (window.innerWidth > 1024) {
-                        customPagination.setAttribute('data-aos', 'fade-left');
+                        customPagination.setAttribute('data-aos', 'fade-right');
                     } else if (window.innerWidth <= 1024) {
                         $(customPagination).attr('data-aos', 'fade-top');
                     }
@@ -212,7 +205,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function addCollapse(menuId, iconClass) {
         // Select the menu by its ID
         let menu = $(`#${menuId}`);
-
         // Find <li> elements with the "menu-item-has-children" class
         menu.find('li.menu-item-has-children').each(function () {
             let listItem = $(this);
@@ -220,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Add a button after the anchor link with both SVG icons (initially hiding the minus icon)
             anchor.after(`
-        <button id="" type="button" class="btn btn-link ps-3 py-0" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu">
+        <button id="" type="button" aria-label="show submenu" class="btn btn-link ps-3 py-0" data-bs-toggle="collapse" data-bs-target="#${listItem.attr('id')}-submenu">
             <svg id="${listItem.attr('id')}-plus" width="20" height="20" fill="currentColor" class="bi bi-plus-lg fs-4" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"/>
             </svg>
@@ -259,25 +251,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
-
-
 // Call the function with the menu ID you want to modify
     addCollapse('navbarMenu', 'text-secondary');
     addCollapse('navbarMenuMobile', 'text-white');
     addCollapse('navbarHomeMenu', 'text-white');
 
     if (!$('body').hasClass('home')) {
-        let backToTop = document.getElementById("backToTop");
-        backToTop.addEventListener('click', backtoTopHandler)
-
-        function backtoTopHandler() {
-            document.body.scrollTop = 0; // For Safari
-            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-        }
-    }
-    if ($('body').hasClass('home')) {
         const hamburgerMenu = document.querySelector("#hamburger-menu");
-
         function toggleNav() {
             // Toggle: Hamburger Open/Close
             hamburgerMenu.classList.add("active");
@@ -289,33 +269,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
         hamburgerMenu.addEventListener("click", toggleNav);
     }
-    // function handleResponsive() {
-    //     // Check the screen size or viewport dimensions
-    //     if (window.innerWidth > 1024) {
-    //         homeSwiper();
-    //     } else {
-    //         $('.home main > div').removeClass('swiper')
-    //         $('.home main > div > div').removeClass('swiper-wrapper')
-    //         $('.home main > div > div > div').removeClass('swiper-slide')
-    //         let disableAnimationElements = document.querySelectorAll('[data-aos-disable]');
-    //         disableAnimationElements.forEach(function (element) {
-    //             element.removeAttribute('data-aos');
-    //             element.removeAttribute('data-aos-duration');
-    //         });
-    //     }
-    // }
-
-// Event listener for the resize event
-//     window.addEventListener('resize', handleResponsive);
-// Initial call to handleResponsive to execute the code on page load
-//     handleResponsive();
     // portfolio slider
     const swiperSilder = new Swiper('.swiper2', {
         direction: 'horizontal',
         speed: 1000,
         effect: 'fade',
         autoplay: {
-            delay: 5000,
+            delay: 10000,
         },
         pagination: {
             el: '.swiper-pagination',
@@ -326,14 +286,6 @@ document.addEventListener('DOMContentLoaded', function () {
             onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
         },
         on: {
-            // slideChange: function () {
-            //     $('.heroBg').removeClass('heroIntro');
-            //
-            //     // Add the 'heroIntro' class to the 'heroBg' element in the active slide
-            //     let activeSlide = this.slides[this.activeIndex];
-            //     $(activeSlide).find('.heroBg').addClass('heroIntro');
-            // },
-
             init: function () {
                 let elementsWithNumberGreaterThanOne = document.querySelectorAll('[data-number]:not([data-number="1"])');
                 elementsWithNumberGreaterThanOne.forEach(function (element) {

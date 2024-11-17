@@ -91,7 +91,7 @@ if ($loop->have_posts()) :
             <div class="masonry-item col-12 col-md-6 p-2 overflow-hidden product-card"
                  data-categories="<?php echo $category_string; ?>" data-visible="true">
                 <div class="w-100 h-100 position-relative portfolio_card p-0 overflow-hidden">
-                    <img class="object-fit w-100 img-fluid bg-warning"
+                    <img class="masonry-img object-fit w-100 img-fluid bg-warning"
                          src="<?php echo esc_url(the_post_thumbnail_url()); ?>"
                          alt="<?php echo get_the_title(); ?>"/>
                     <a href="<?php the_permalink(); ?>"

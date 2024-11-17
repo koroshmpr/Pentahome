@@ -1,4 +1,4 @@
-html, body {
+html, body:not(.single-post) {
   overflow-x: hidden;
 }
 
