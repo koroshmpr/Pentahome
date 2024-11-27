@@ -1,11 +1,8 @@
 <?php
-// table of contents
-/**
- * Automatically add IDs to headings such as <h2></h2>
- */
-function auto_id_headings($content)
-{
+// Automatically add IDs to headings such as <h2></h2>
+function auto_id_headings($content) {
     $content = preg_replace_callback('/(\<h[1-6](.*?))\>(.*)(<\/h[1-6]>)/i', function ($matches) {
+        // Check if ID is not already set
         if (!stripos($matches[0], 'id=')) {
             $matches[0] = $matches[1] . $matches[2] . ' id="' . sanitize_title($matches[3]) . '">' . $matches[3] . $matches[4];
         }
@@ -16,140 +13,133 @@ function auto_id_headings($content)
 
 add_filter('the_content', 'auto_id_headings');
 
-function get_toc($content, $from_tag = 1, $to_tag = 6)
-{
-    // get headlines
-    $headings = get_headings($content, $from_tag, $to_tag);
+// Generate the Table of Contents
+function get_toc($content, $from_tag, $to_tag, $sideBar) {
+    // Base classes for TOC
+    $toc_classes = 'table-of-contents bg-primary bg-opacity-10 shadow-sm p-3';
 
-    // parse toc
+    // Add sticky classes if sidebar is true
+    if ($sideBar) {
+        $toc_classes .= ' ';
+    }
+    if (!$sideBar) {
+        $toc_classes .= ' mt-4 col-lg-10';
+    }
+
+    // Parse TOC
     ob_start();
-    echo "<div class='table-of-contents bg-primary bg-opacity-10 shadow-sm p-3 position-sticky top-0'>";
-    echo '<p class="fw-bold fs-4 mt-3 mb-4 text-primary">آنچه در این مطلب می‌خوانید!</p>';
-    parse_toc($headings, 0, 0);
+    echo "<div class='" . esc_attr($toc_classes) . "'>";
+    echo '<p class="fw-bold fs-5 my-3 text-primary">'. get_field('toc_title' , 'option') ?? 'آنچه در این مطلب می‌خوانید!'.'</p>';
+    parse_toc(get_headings($content, $from_tag, $to_tag), 0, 0);
     echo "</div>";
     return ob_get_clean();
 }
 
-function parse_toc($headings, $index, $recursive_counter)
-{
-    // prevent errors
+// Parse the headings into a TOC structure
+function parse_toc($headings, $index, $recursive_counter) {
     if ($recursive_counter > 60 || !count($headings)) return;
 
-    // get all needed elements
     $last_element = $index > 0 ? $headings[$index - 1] : NULL;
     $current_element = $headings[$index];
-    $next_element = NULL;
-    if ($index < count($headings) && isset($headings[$index + 1])) {
-        $next_element = $headings[$index + 1];
-    }
+    $next_element = $headings[$index + 1] ?? NULL;
 
-    // end recursive calls
     if ($current_element == NULL) return;
 
-    // get all needed variables
     $tag = intval($headings[$index]["tag"]);
     $id = $headings[$index]["id"];
-    $classes = $headings[$index]["classes"] ?? array();
     $name = $headings[$index]["name"];
 
-    // element not in toc
-    if (isset($current_element["classes"]) && $current_element["classes"] && in_array("nitoc", $current_element["classes"])) {
-        parse_toc($headings, $index + 1, $recursive_counter + 1);
-        return;
-    }
-
-    // parse toc begin or toc subpart begin
     if ($last_element == NULL) echo "<ul>";
-    if ($last_element != NULL && $last_element["tag"] < $tag) {
+    if ($last_element && $last_element["tag"] < $tag) {
         for ($i = 0; $i < $tag - $last_element["tag"]; $i++) {
             echo "<ul class='ps-1'>";
         }
     }
 
-    // build li class
-    $li_classes = " class='my-2'";
-    if (isset($current_element["classes"]) && $current_element["classes"] && in_array("toc-bold", $current_element["classes"])) $li_classes = " class='bold'";
+    echo "<li class='my-2' data-id='" . esc_attr($id) . "'>";
+    echo "<a class='text-decoration-none lazy fs-6' rel='noindex' href='javascript:void(0)' data-scroll-id='" . esc_attr($id) . "'>" . esc_html($name) . "</a>";
 
-    // parse line begin
-    echo "<li" . $li_classes . " data-id='" . $id . "'>";
-
-    // only parse name, when li is not bold
-    if (isset($current_element["classes"]) && $current_element["classes"] && in_array("toc-bold", $current_element["classes"])) {
-        echo $name;
-    } else {
-        echo "<a class='text-decoration-none fs-6' rel='noindex' href='#" . $id . "'>" . $name . "</a>";
-    }
     if ($next_element && intval($next_element["tag"]) > $tag) {
         parse_toc($headings, $index + 1, $recursive_counter + 1);
     }
 
-    // parse line end
     echo "</li>";
 
-    // parse next line
     if ($next_element && intval($next_element["tag"]) == $tag) {
         parse_toc($headings, $index + 1, $recursive_counter + 1);
     }
 
-    // parse toc end or toc subpart end
-    if ($next_element == NULL || ($next_element && $next_element["tag"] < $tag)) {
+    if (!$next_element || ($next_element && $next_element["tag"] < $tag)) {
         echo "</ul>";
-        if ($next_element && $tag - intval($next_element["tag"]) >= 2) {
-            echo "</li>";
-            for ($i = 1; $i < $tag - intval($next_element["tag"]); $i++) {
-                echo "</ul>";
-            }
-        }
-    }
-
-    // parse top subpart
-    if ($next_element != NULL && $next_element["tag"] < $tag) {
-        parse_toc($headings, $index + 1, $recursive_counter + 1);
     }
 }
 
-function get_headings($content, $from_tag = 1, $to_tag = 6)
-{
-    $headings = array();
+
+// Extract headings from content
+function get_headings($content, $from_tag, $to_tag) {
+    $headings = [];
     preg_match_all("/<h([" . $from_tag . "-" . $to_tag . "])([^<]*)>(.*)<\/h[" . $from_tag . "-" . $to_tag . "]>/", $content, $matches);
 
     for ($i = 0; $i < count($matches[1]); $i++) {
         $headings[$i]["tag"] = $matches[1][$i];
-        // get id
         $att_string = $matches[2][$i];
+
+        // Match ID if it's available in the heading tag
         preg_match("/id=\"([^\"]*)\"/", $att_string, $id_matches);
-        $headings[$i]["id"] = $id_matches[1];
-        // get classes
-        $att_string = $matches[2][$i];
+        $headings[$i]["id"] = $id_matches[1] ?? sanitize_title($matches[3][$i]);
+
+        // Handle any classes within the heading tag
         preg_match_all("/class=\"([^\"]*)\"/", $att_string, $class_matches);
-        for ($j = 0; $j < count($class_matches[1]); $j++) {
-            $headings[$i]["classes"] = explode(" ", $class_matches[1][$j]);
-        }
+        $headings[$i]["classes"] = $class_matches[1][0] ?? [];
+
+        // Clean up the heading name
         $headings[$i]["name"] = strip_tags($matches[3][$i]);
     }
     return $headings;
 }
 
-// TOC (from webdeasy.de)
-function toc_shortcode($atts)
-{
-    // Extract shortcode attributes
+// Shortcode for the TOC
+function toc_shortcode($atts) {
+    // Retrieve options for the Table of Content
+    $sideBar = get_field('sidebar', 'option');
+    $tableOfContent = get_field('table_of_content', 'option');
+    $from_tag = $tableOfContent['min-heading'] ?? 2;
+    $to_tag = $tableOfContent['max-heading'] ?? 4;
+
+    // Merge default values with user-defined shortcode attributes
     $atts = shortcode_atts(
         array(
-            'from_tag' => 1,
-            'to_tag' => 6,
+            'from_tag' => $from_tag,
+            'to_tag' => $to_tag,
+            'sideBar' => $sideBar,
         ),
         $atts,
         'TOC'
     );
 
-    // Get content with auto IDs
+    // Get content and process headings
     $content = auto_id_headings(get_the_content());
-
-    // Return the TOC with specified heading range
-    return get_toc($content, $atts['from_tag'], $atts['to_tag']);
+    return get_toc($content, $atts['from_tag'], $atts['to_tag'], $atts['sideBar']);
 }
 
 add_shortcode('TOC', 'toc_shortcode');
 
-//[TOC from_tag="2" to_tag="3"]
+// Example usage:
+// [TOC from_tag="2" to_tag="4" sideBar="true"]
+?>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.table-of-contents a[data-scroll-id]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('data-scroll-id');
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    });
+
+</script>
+<?php

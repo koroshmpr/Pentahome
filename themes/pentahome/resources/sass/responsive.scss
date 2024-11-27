@@ -1,4 +1,10 @@
 @include media-breakpoint-up(lg) {
+  .position-lg-fixed {
+    position: fixed;
+  }
+  .table-of-contents {
+    height: 100%;
+  }
   .w-lg-75 {
     width: 75% !important;
   }
@@ -115,7 +121,9 @@
   .fs-5 {
     font-size: 0.9rem !important;
   }
-
+  #post-content p{
+    font-size: 1rem!important;
+  }
   .fs-6, p, span {
     font-size: 0.75rem !important;
     line-height: 1.7;

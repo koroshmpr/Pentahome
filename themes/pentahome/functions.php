@@ -187,16 +187,41 @@ function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
 
 	return $urls;
 }
-function custom_post_type_args( $args, $post_type ) {
-    // Change 'project' to the slug of your custom post type
-    if ( 'works' === $post_type ) {
-        // Set the with_front parameter to false
-        $args['rewrite']['with_front'] = false;
+function custom_post_type_args($args, $post_type)
+{
+    // Modify the rewrite rules for specific post types
+    $custom_post_types = ['works', 'portfolio'];
+
+    if (in_array($post_type, $custom_post_types, true)) {
+        // Ensure the rewrite has the with_front parameter set to false
+        if (isset($args['rewrite'])) {
+            $args['rewrite']['with_front'] = false;
+        } else {
+            $args['rewrite'] = ['with_front' => false];
+        }
     }
-    if ( 'portfolio' === $post_type ) {
-        // Set the with_front parameter to false
-        $args['rewrite']['with_front'] = false;
-    }
+
     return $args;
 }
-add_filter( 'register_post_type_args', 'custom_post_type_args', 10, 2 );
+add_filter('register_post_type_args', 'custom_post_type_args', 10, 2);
+
+function custom_taxonomy_args($args, $taxonomy)
+{
+    // Modify the rewrite rules for specific taxonomies
+    $custom_taxonomies = [
+        'works_categories',     // Replace with the taxonomy slug for works
+        'portfolio_categories', // Replace with the taxonomy slug for portfolio
+    ];
+
+    if (in_array($taxonomy, $custom_taxonomies, true)) {
+        // Ensure the rewrite has the with_front parameter set to false
+        if (isset($args['rewrite'])) {
+            $args['rewrite']['with_front'] = false;
+        } else {
+            $args['rewrite'] = ['with_front' => false];
+        }
+    }
+
+    return $args;
+}
+add_filter('register_taxonomy_args', 'custom_taxonomy_args', 10, 2);

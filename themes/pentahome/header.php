@@ -23,5 +23,5 @@ if (is_front_page()) {
     <?php
     if (!is_front_page()) :
         get_template_part('template-parts/Layout/Header/side_header');?>
-        <div class="col-lg-10  <?= is_singular('post') ? '' : 'overflow-hidden'; ?> min-vh-100 col-12" style="background-color: #f4f4f4;">
+        <div class="col-lg-9 col-xl-10  <?= is_singular('post') ? '' : 'overflow-hidden'; ?> min-vh-100 col-12" style="background-color: #f4f4f4;">
     <?php endif; ?>

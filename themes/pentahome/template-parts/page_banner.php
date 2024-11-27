@@ -4,7 +4,7 @@
         <hr class="text-white d-none d-md-block opacity-100 rounded-pill bg-white" style="width: 40px"
             data-aos="fade-right"
             data-aos-duration="500">
-        <h1 class="display-1 fw-bold text-white" data-aos="fade-right" data-aos-duration="500" data-aos-delay="150">
+        <h1 class="<?= is_singular('post') ? 'display-5' : 'display-1'; ?> fw-bold text-white" data-aos="fade-right" data-aos-duration="500" data-aos-delay="150">
             <?= $args['title'] ?? get_the_title(); ?>
         </h1>
         <?php
@@ -18,7 +18,7 @@
                                 d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64l.012-.013.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5M8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3"/>
                     </svg>
                     <span class="d-none d-lg-inline">زمان مطالعه</span>
-                    <span class="fw-bold text-primary"><?= do_shortcode('[reading_time]') ?></span>
+                    <span class="fw-bold"><?= do_shortcode('[reading_time]') ?></span>
                     <span>دقیقه</span>
                 </div>
                 <div class="vr mx-3" data-aos="fade-out" data-aos-delay="300"></div>
@@ -30,7 +30,7 @@
                         <path
                                 d="M6.5 7a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m-9 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2m3 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2"/>
                     </svg>
-                    <?= get_the_date('d  F , Y'); ?>
+                    <?= shamsi_date('d F, Y', get_the_time('U')); ?>
                 </div>
             </div>
         <?php

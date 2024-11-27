@@ -32,7 +32,7 @@ get_template_part('template-parts/page_banner', null, $args);
                     </script>
                 </div>
                 <div data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200"
-                     class="col-lg-4 col-12 align-self-center px-4 px-lg-5 mx-lg-auto py-5">
+                     class="col-xl-4 col-lg-5 col-12 align-self-center px-4 px-lg-5 mx-lg-auto py-5">
                     <h2 class="text-primary">راه‌های ارتباطی</h2>
                     <div class="pt-3 gap-3">
                         <address class="mb-0 text-primary fs-5">

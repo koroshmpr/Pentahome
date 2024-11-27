@@ -1,4 +1,4 @@
-<header class="col-lg-2 position-fixed top-0 bottom-0 end-0 z-top">
+<header class="col-lg-3 col-xl-2 position-fixed top-0 bottom-0 end-0 z-top">
     <button class="btn hamburger-menu bg-dark bg-opacity-25 d-lg-none mt-2" type="button" data-bs-toggle="offcanvas" id="hamburger-menu"
             data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" data-aos="fade-right" aria-label="menu offcanvas">
             <div class="menu-bar1 bg-primary"></div>

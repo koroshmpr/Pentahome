@@ -6,10 +6,7 @@ import AOS from 'aos';
 // import 'aos/dist/aos.css';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
-
-// Declare masonry outside of the $(document).ready() function
 let masonry;
-
 $(document).ready(function () {
     // Initialize Masonry
     let masonryGrid = document.querySelector(".masonry");
@@ -26,7 +23,6 @@ $(document).ready(function () {
         imagesLoaded(masonryGrid).on("progress", function () {
             masonry.layout();
         });
-
         // Attach the event handler to filter the items
         $(document).on('change', '.category-filter', function () {
             let selectedCategories = [];
@@ -35,62 +31,70 @@ $(document).ready(function () {
             // Loop through all the checkboxes
             $('.category-filter').each(function () {
                 let categoryCheckbox = $(this);
-                let categoryLi = categoryCheckbox.closest('li'); // Find the parent <li>
+                let categoryLi = categoryCheckbox.closest('li');
 
                 if (categoryCheckbox.is(':checked')) {
-                    var category = categoryCheckbox.val();
-                    isSelectAllChecked = category == 'all' ? true : false;
-                    if (category != 'all') {
+                    let category = categoryCheckbox.val();
+                    isSelectAllChecked = category === 'all';
+                    if (category !== 'all') {
                         selectedCategories.push(category);
                     }
-                    // Toggle the 'active' class on the parent <li
                     categoryLi.addClass('active');
                     categoryLi.siblings('li').removeClass('active');
                 } else {
-                    // Remove the 'active' class
                     categoryLi.removeClass('active');
                 }
             });
 
-            // Filter the product list based on selected categories
-            $('.product-card').each(function () {
-                let productCategories = $(this).attr('data-categories');
-                let masonryItem = $(this).closest('.masonry-item');
+            // Collect items to hide and show
+            let itemsToShow = [];
+            let itemsToHide = [];
+
+            $('.masonry-item').each(function () {
+                let masonryItem = $(this);
+                let productCategories = masonryItem.find('.product-card').attr('data-categories');
 
                 if (isSelectAllChecked || selectedCategories.length === 0) {
-                    // Show all products when "Select All" is checked or no category is selected
-                    masonryItem.attr('data-visible', 'true').show();
-                } else {
-                    // Filter products based on selected categories
-                    if (productCategories) {
-                        let categories = productCategories.split(',');
-                        let matches = selectedCategories.filter(function (category) {
-                            return categories.indexOf(category) != -1;
-                        });
+                    itemsToShow.push(masonryItem);
+                } else if (productCategories) {
+                    let categories = productCategories.split(',');
+                    let matches = selectedCategories.filter(function (category) {
+                        return categories.indexOf(category) !== -1;
+                    });
 
-                        if (matches.length > 0) {
-                            masonryItem.attr('data-visible', 'true').show();
-                        } else {
-                            masonryItem.attr('data-visible', 'false').hide();
-                        }
+                    if (matches.length > 0) {
+                        itemsToShow.push(masonryItem);
                     } else {
-                        masonryItem.attr('data-visible', 'false').hide();
+                        itemsToHide.push(masonryItem);
                     }
+                } else {
+                    itemsToHide.push(masonryItem);
                 }
             });
-            // Layout Masonry after filtering
-            masonry.layout();
+
+            // Update visibility and re-layout Masonry
+            itemsToHide.forEach((item) => $(item).hide());
+            itemsToShow.forEach((item) => $(item).show());
+
+            masonry.layout(); // Recalculate layout
         });
     }
 });
-let names = [];
-$(".swiper1 .swiper-slide section").each(function (i) {
-    names.push($(this).data("name"));
-});
-
 document.addEventListener('DOMContentLoaded', function () {
     AOS.init()
     if ($('body').hasClass('home')) {
+        let names = [];
+        $(".swiper1 .swiper-slide section").each(function (i) {
+            names.push($(this).data("name"));
+        });
+        const hamburgerMenu = document.querySelector("#hamburger-menu");
+        hamburgerMenu.addEventListener("click", function () {
+            // Toggle: Hamburger Open/Close
+            hamburgerMenu.classList.add("active");
+            setTimeout(function () {
+                    hamburgerMenu.classList.remove("active")
+                }, 400)
+        });
         const swiper = new Swiper('.swiper1', {
             autoHeight: true, //enable auto height
             hashNavigation: true,
@@ -200,8 +204,70 @@ document.addEventListener('DOMContentLoaded', function () {
 
             }
         });
-    }
+        const swiperSilder = new Swiper('.swiper2', {
+            direction: 'horizontal',
+            speed: 1000,
+            effect: 'fade',
+            autoplay: {
+                delay: 10000,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            keyboard: {
+                enabled: true,
+                onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
+            },
+            on: {
+                init: function () {
+                    let elementsWithNumberGreaterThanOne = document.querySelectorAll('[data-number]:not([data-number="1"])');
+                    elementsWithNumberGreaterThanOne.forEach(function (element) {
+                        element.classList.remove('aos-animate')
+                    });
+                },
+                afterInit: function () {
+                    setTimeout(function () {
+                        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+                    }, 50)
+                },
+                realIndexChange: function () {
+                    let activeSlide = this.realIndex;
+                    let slides = this.slides;
 
+                    setTimeout(function () {
+                        slides.forEach(function (slide, index) {
+                            let elementsWithAos = slide.querySelectorAll('[data-aos]');
+                            elementsWithAos.forEach(function (element) {
+                                if (index === activeSlide) {
+                                    element.classList.add('aos-animate');
+                                } else {
+                                    element.classList.remove('aos-animate');
+                                }
+
+                            })
+                        });
+                    }, 600);
+                }
+            }
+        })
+        // paggination color change
+        if (Array.isArray(svgData)) {
+            svgData.forEach(function (items, index) {
+                const productsSlider = new Swiper(`.swiper${index + 3}`, {
+                    direction: 'horizontal',
+                    speed: 1000,
+                    effect: 'fade',
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+
+                })
+            })
+        }
+    }
     function addCollapse(menuId, iconClass) {
         // Select the menu by its ID
         let menu = $(`#${menuId}`);
@@ -255,82 +321,4 @@ document.addEventListener('DOMContentLoaded', function () {
     addCollapse('navbarMenu', 'text-secondary');
     addCollapse('navbarMenuMobile', 'text-white');
     addCollapse('navbarHomeMenu', 'text-white');
-
-    if (!$('body').hasClass('home')) {
-        const hamburgerMenu = document.querySelector("#hamburger-menu");
-        function toggleNav() {
-            // Toggle: Hamburger Open/Close
-            hamburgerMenu.classList.add("active");
-            setTimeout(function () {
-                    hamburgerMenu.classList.remove("active")
-                }
-                , 400)
-        }
-
-        hamburgerMenu.addEventListener("click", toggleNav);
-    }
-    // portfolio slider
-    const swiperSilder = new Swiper('.swiper2', {
-        direction: 'horizontal',
-        speed: 1000,
-        effect: 'fade',
-        autoplay: {
-            delay: 10000,
-        },
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        keyboard: {
-            enabled: true,
-            onlyInViewport: true, // Ensures the keyboard control only works when Swiper is in viewport
-        },
-        on: {
-            init: function () {
-                let elementsWithNumberGreaterThanOne = document.querySelectorAll('[data-number]:not([data-number="1"])');
-                elementsWithNumberGreaterThanOne.forEach(function (element) {
-                    element.classList.remove('aos-animate')
-                });
-            },
-            afterInit: function () {
-                setTimeout(function () {
-                    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-                    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
-                }, 50)
-            },
-            realIndexChange: function () {
-                let activeSlide = this.realIndex;
-                let slides = this.slides;
-
-                setTimeout(function () {
-                    slides.forEach(function (slide, index) {
-                        let elementsWithAos = slide.querySelectorAll('[data-aos]');
-                        elementsWithAos.forEach(function (element) {
-                            if (index === activeSlide) {
-                                element.classList.add('aos-animate');
-                            } else {
-                                element.classList.remove('aos-animate');
-                            }
-
-                        })
-                    });
-                }, 600);
-            }
-        }
-    })
-    // paggination color change
-    if (Array.isArray(svgData)) {
-        svgData.forEach(function (items, index) {
-            const productsSlider = new Swiper(`.swiper${index + 3}`, {
-                direction: 'horizontal',
-                speed: 1000,
-                effect: 'fade',
-                pagination: {
-                    el: '.swiper-pagination',
-                    clickable: true,
-                },
-
-            })
-        })
-    }
 })

@@ -177,3 +177,31 @@ form[method="POST"] {
       }
     }
 }
+body.single-post {
+  h1{
+    font-size: 2rem!important;
+  }
+}
+#post-content {
+  a {
+    font-weight: bold;
+  }
+  strong {
+    font-weight: 700!important;
+    color: #333!important;
+  }
+  p , ol , ul{
+    line-height: 2;
+  }
+ h2, h3, h4, h5, h6 {
+   scroll-margin-top: 150px;
+   margin-bottom: 2rem;
+ }
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    height: auto;
+  }
+}
