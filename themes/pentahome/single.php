@@ -59,7 +59,7 @@ get_template_part('template-parts/page_banner', null, $args);
                                     <img class="rounded img-fluid object-fit col-3" style="aspect-ratio: 1;"
                                          src="<?php echo get_the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
                                     <div class="ps-3 flex-grow-1">
-                                        <p class="fw-bold text-white text-justify mb-2"><?php echo get_the_title(); ?></p>
+                                        <p class="fw-bold text-white small text-justify mb-2"><?php echo get_the_title(); ?></p>
                                         <div class="d-flex align-items-center gap-2 text-dark">
                                             <?php
                                             $category_detail = get_the_category($post->ID); // $post->ID
@@ -111,6 +111,21 @@ get_template_part('template-parts/page_banner', null, $args);
             </script>
         <?php endif; ?>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.table-of-contents a[data-scroll-id]').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('data-scroll-id');
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        });
+
+    </script>
 <?php
 if (!$sideBar):?>
     <?php

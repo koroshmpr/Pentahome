@@ -169,31 +169,25 @@ function optimize_site() {
 
 add_action( 'init', 'optimize_site' );
 
-/**
- * Remove emoji CDN hostname from DNS prefetching hints.
- *
- * @param array $urls URLs to print for resource hints.
- * @param string $relation_type The relation type the URLs are printed for.
- *
- * @return array Difference betwen the two arrays.
- */
-function disable_emojis_remove_dns_prefetch( $urls, $relation_type ) {
-	if ( 'dns-prefetch' == $relation_type ) {
-		/** This filter is documented in wp-includes/formatting.php */
-		$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
-
-		$urls = array_diff( $urls, array( $emoji_svg_url ) );
-	}
-
-	return $urls;
-}
-function custom_post_type_args($args, $post_type)
+function custom_post_type_and_taxonomy_args($args, $type)
 {
-    // Modify the rewrite rules for specific post types
+    // Define the custom post types and taxonomies
     $custom_post_types = ['works', 'portfolio'];
+    $custom_taxonomies = ['works_categories', 'portfolio_categories'];
 
-    if (in_array($post_type, $custom_post_types, true)) {
-        // Ensure the rewrite has the with_front parameter set to false
+    // Check if the type is a custom post type and modify args
+    if (in_array($type, $custom_post_types, true)) {
+        // Modify the rewrite rules for custom post types
+        if (isset($args['rewrite'])) {
+            $args['rewrite']['with_front'] = false;
+        } else {
+            $args['rewrite'] = ['with_front' => false];
+        }
+    }
+
+    // Check if the type is a custom taxonomy and modify args
+    if (in_array($type, $custom_taxonomies, true)) {
+        // Modify the rewrite rules for custom taxonomies
         if (isset($args['rewrite'])) {
             $args['rewrite']['with_front'] = false;
         } else {
@@ -203,25 +197,4 @@ function custom_post_type_args($args, $post_type)
 
     return $args;
 }
-add_filter('register_post_type_args', 'custom_post_type_args', 10, 2);
-
-function custom_taxonomy_args($args, $taxonomy)
-{
-    // Modify the rewrite rules for specific taxonomies
-    $custom_taxonomies = [
-        'works_categories',     // Replace with the taxonomy slug for works
-        'portfolio_categories', // Replace with the taxonomy slug for portfolio
-    ];
-
-    if (in_array($taxonomy, $custom_taxonomies, true)) {
-        // Ensure the rewrite has the with_front parameter set to false
-        if (isset($args['rewrite'])) {
-            $args['rewrite']['with_front'] = false;
-        } else {
-            $args['rewrite'] = ['with_front' => false];
-        }
-    }
-
-    return $args;
-}
-add_filter('register_taxonomy_args', 'custom_taxonomy_args', 10, 2);
+add_filter('register_post_type_args', 'custom_post_type_and_taxonomy_args', 10, 2);

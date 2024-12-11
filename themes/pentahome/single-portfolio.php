@@ -27,7 +27,7 @@
                     <div class="masonry-item col-lg-6 p-2">
                         <img class="masonry-img object-fit rounded-1 img-fluid bg-warning w-100"
                              src="<?php echo esc_url($image['url']); ?>"
-                             alt="<?php echo esc_attr($image['alt']); ?>"/>
+                             alt="<?php echo esc_attr($image['alt']) ?? get_the_title(); ?>"/>
                     </div>
                     <?php
                     $i++;

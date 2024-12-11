@@ -25,7 +25,7 @@ get_template_part('template-parts/page_banner', null, $args);
         $j = 0;
         /* Start the Loop */
         ?>
-        <div class="justify-content-start align-items-start d-flex flex-wrap">
+        <div class="justify-content-start mt-3 align-items-start d-flex flex-wrap">
             <?php while ($loop->have_posts()) :
                 $loop->the_post();
                 get_template_part('template-parts/blog/archive-card');

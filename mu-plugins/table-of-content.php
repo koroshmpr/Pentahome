@@ -57,7 +57,7 @@ function parse_toc($headings, $index, $recursive_counter) {
     }
 
     echo "<li class='my-2' data-id='" . esc_attr($id) . "'>";
-    echo "<a class='text-decoration-none lazy fs-6' rel='noindex' href='javascript:void(0)' data-scroll-id='" . esc_attr($id) . "'>" . esc_html($name) . "</a>";
+    echo "<a class='text-decoration-none lazy small' rel='noindex' href='javascript:void(0)' data-scroll-id='" . esc_attr($id) . "'>" . esc_html($name) . "</a>";
 
     if ($next_element && intval($next_element["tag"]) > $tag) {
         parse_toc($headings, $index + 1, $recursive_counter + 1);
@@ -126,20 +126,3 @@ add_shortcode('TOC', 'toc_shortcode');
 
 // Example usage:
 // [TOC from_tag="2" to_tag="4" sideBar="true"]
-?>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.table-of-contents a[data-scroll-id]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = link.getAttribute('data-scroll-id');
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-    });
-
-</script>
-<?php

@@ -32,8 +32,7 @@ if ($subcategories) {
         <ul class="category-list d-flex justify-content-md-center gap-3 mb-0 py-2 align-items-center list-unstyled justify-content-start pe-3 pe-lg-0">
             <li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary active">
                 <label class="d-flex align-items-start gap-2">
-                    <input type="radio" class="category-filter" name="category" value="all">
-                    <p class="mb-0">همه</p>
+                    <input type="radio" class="category-filter" name="category" value="all">همه
                 </label>
             </li>
             <?php
@@ -46,8 +45,7 @@ if ($subcategories) {
                     <li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary">
                         <label class="d-flex align-items-start gap-2">
                             <input type="radio" class="category-filter" name="category"
-                                   value="<?= $subcategory->term_id; ?>">
-                            <p class="mb-0"><?= $subcategory_name; ?></p>
+                                   value="<?= $subcategory->term_id; ?>"><?= $subcategory_name; ?>
                         </label>
                     </li>
                 <?php }
@@ -59,8 +57,7 @@ if ($subcategories) {
                 <li class="category-filter__list border col-auto border-secondary py-2 rounded-2 px-4 text-secondary">
                     <label class="d-flex align-items-start gap-2">
                         <input type="radio" class="category-filter" name="category"
-                               value="<?= $term_21->term_id; ?>">
-                        <p class="mb-0"><?= $subcategory_name; ?></p>
+                               value="<?= $term_21->term_id; ?>"><?= $subcategory_name; ?>
                     </label>
                 </li>
             <?php } ?>
@@ -73,22 +70,24 @@ if ($subcategories) {
 // Filter variables
 $selected_categories = isset($_GET['category']) ? explode(',', $_GET['category']) : array();
 $args = array(
-    'post_type' => 'works',
+    'post_type'      => 'works',
     'posts_per_page' => -1,
+    'orderby'        => 'rand',
 );
+
 $loop = new WP_Query($args);
 
 if ($loop->have_posts()) :
     $i = 0;
     ?>
-    <section class="masonry justify-content-center product-cards">
+    <section class="masonry row-cols-1 row-cols-md-2">
         <?php while ($loop->have_posts()) :
             $loop->the_post();
             $post_id = get_the_ID();
             $category_ids = wp_get_post_terms(get_the_ID(), 'works_categories', array('fields' => 'ids'));
             $category_string = implode(',', $category_ids);
             ?>
-            <div class="masonry-item col-12 col-md-6 p-2 overflow-hidden product-card"
+            <div class="masonry-item p-2 overflow-hidden product-card"
                  data-categories="<?php echo $category_string; ?>" data-visible="true">
                 <div class="w-100 h-100 position-relative portfolio_card p-0 overflow-hidden">
                     <img class="masonry-img object-fit w-100 img-fluid bg-warning"

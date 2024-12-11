@@ -1,6 +1,6 @@
 <div class="col-12 col-md-6 col-xl-4 p-2 overflow-hidden portfolio_card">
     <div class="w-100 h-100 position-relative p-0 overflow-hidden" data-aos="fade-down" data-aos-duration="500" data-aos-delay="<?= $j; ?>0">
-        <img class="object-fit img-fluid"
+        <img class="object-fit-cover w-100" height="350"
              src="<?php echo esc_url(the_post_thumbnail_url()); ?>"
              alt="<?php echo get_the_title(); ?>"/>
         <a href="<?php the_permalink(); ?>"
@@ -29,5 +29,5 @@
             </div>
         </a>
     </div>
-        <h3 class="fs-5 bg-primary p-3 mb-0 text-center text-white"><?php echo get_the_title(); ?></h3>
+        <h3 class="fs-6 bg-primary p-3 mb-0 text-center text-white"><?php echo get_the_title(); ?></h3>
 </div>

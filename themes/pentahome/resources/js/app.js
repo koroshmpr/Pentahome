@@ -6,6 +6,7 @@ import AOS from 'aos';
 // import 'aos/dist/aos.css';
 import Masonry from 'masonry-layout';
 import imagesLoaded from 'imagesloaded';
+
 let masonry;
 $(document).ready(function () {
     // Initialize Masonry
@@ -15,71 +16,83 @@ $(document).ready(function () {
             itemSelector: ".masonry-item",
             columnWidth: ".masonry-item",
             originLeft: false,
-            transitionDuration: '0.8s',
-            percentPosition: false,
+            resize: false,
+            percentPosition: true,
         });
-
-        // Initialize Masonry after images have loaded
         imagesLoaded(masonryGrid).on("progress", function () {
             masonry.layout();
         });
+
         // Attach the event handler to filter the items
-        $(document).on('change', '.category-filter', function () {
+        $(document).on("change", ".category-filter", function () {
             let selectedCategories = [];
             let isSelectAllChecked = true;
 
             // Loop through all the checkboxes
-            $('.category-filter').each(function () {
+            $(".category-filter").each(function () {
                 let categoryCheckbox = $(this);
-                let categoryLi = categoryCheckbox.closest('li');
-
-                if (categoryCheckbox.is(':checked')) {
+                let categoryLi = categoryCheckbox.closest("li"); // Find the parent <li>
+                if (categoryCheckbox.is(":checked")) {
                     let category = categoryCheckbox.val();
-                    isSelectAllChecked = category === 'all';
-                    if (category !== 'all') {
+                    isSelectAllChecked = category === "all";
+                    if (category !== "all") {
                         selectedCategories.push(category);
                     }
-                    categoryLi.addClass('active');
-                    categoryLi.siblings('li').removeClass('active');
+                    // Toggle the 'active' class on the parent <li>
+                    categoryLi.addClass("active");
+                    categoryLi.siblings("li").removeClass("active");
                 } else {
-                    categoryLi.removeClass('active');
+                    // Remove the 'active' class
+                    categoryLi.removeClass("active");
                 }
             });
 
-            // Collect items to hide and show
-            let itemsToShow = [];
-            let itemsToHide = [];
+            // Reorder masonry items
+            let $visibleItems = [];
+            let $hiddenItems = [];
 
-            $('.masonry-item').each(function () {
-                let masonryItem = $(this);
-                let productCategories = masonryItem.find('.product-card').attr('data-categories');
+            $(".product-card").each(function () {
+                let productCategories = $(this).attr("data-categories");
+                let masonryItem = $(this).closest(".masonry-item");
 
                 if (isSelectAllChecked || selectedCategories.length === 0) {
-                    itemsToShow.push(masonryItem);
+                    masonryItem.attr("data-visible", "true").show();
+                    $visibleItems.push(masonryItem);
                 } else if (productCategories) {
-                    let categories = productCategories.split(',');
+                    let categories = productCategories.split(",");
                     let matches = selectedCategories.filter(function (category) {
                         return categories.indexOf(category) !== -1;
                     });
 
                     if (matches.length > 0) {
-                        itemsToShow.push(masonryItem);
+                        masonryItem.attr("data-visible", "true").show();
+                        $visibleItems.push(masonryItem);
                     } else {
-                        itemsToHide.push(masonryItem);
+                        masonryItem.attr("data-visible", "false").hide();
+                        $hiddenItems.push(masonryItem);
                     }
                 } else {
-                    itemsToHide.push(masonryItem);
+                    masonryItem.attr("data-visible", "false").hide();
+                    $hiddenItems.push(masonryItem);
                 }
             });
 
-            // Update visibility and re-layout Masonry
-            itemsToHide.forEach((item) => $(item).hide());
-            itemsToShow.forEach((item) => $(item).show());
+            // Reorder the items: bring visible items to the front
+            $visibleItems.forEach(function (item) {
+                $(masonryGrid).append(item);
+            });
 
-            masonry.layout(); // Recalculate layout
+            $hiddenItems.forEach(function (item) {
+                $(masonryGrid).append(item);
+            });
+
+            // Reset grid height and layout Masonry
+            masonryGrid.style.height = "auto";
+            masonry.layout();
         });
     }
 });
+
 document.addEventListener('DOMContentLoaded', function () {
     AOS.init()
     if ($('body').hasClass('home')) {
@@ -92,8 +105,8 @@ document.addEventListener('DOMContentLoaded', function () {
             // Toggle: Hamburger Open/Close
             hamburgerMenu.classList.add("active");
             setTimeout(function () {
-                    hamburgerMenu.classList.remove("active")
-                }, 400)
+                hamburgerMenu.classList.remove("active")
+            }, 400)
         });
         const swiper = new Swiper('.swiper1', {
             autoHeight: true, //enable auto height
@@ -268,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
             })
         }
     }
+
     function addCollapse(menuId, iconClass) {
         // Select the menu by its ID
         let menu = $(`#${menuId}`);
@@ -317,6 +331,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
     }
+
 // Call the function with the menu ID you want to modify
     addCollapse('navbarMenu', 'text-secondary');
     addCollapse('navbarMenuMobile', 'text-white');

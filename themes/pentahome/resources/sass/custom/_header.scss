@@ -74,13 +74,23 @@ header {
     transform: translateY(0px);
   }
 }
-
+body {
+  &.tax-works_categories .current-menu-parent,
+  &.tax-portfolio_categories .current-menu-parent,
+  &.single-portfolio .menu-item-object-portfolio,
+  &.single-works .menu-item-object-works {
+    a {
+      font-weight: bold;
+      color: $primary !important;
+    }
+  }
+}
 .current-product_cat-ancestor,
 .current_page_parent,
 .current-menu-item {
   & > .nav-link:first-child {
     font-weight: bold;
-    color : $primary!important;
+    color: $primary !important;
   }
 }
 .current_page_item {

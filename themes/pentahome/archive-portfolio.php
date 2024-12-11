@@ -75,20 +75,21 @@ $selected_categories = isset($_GET['category']) ? explode(',', $_GET['category']
 $args = array(
     'post_type' => 'portfolio',
     'posts_per_page' => -1,
+    'orderby' => 'rand'
 );
 $loop = new WP_Query($args);
 
 if ($loop->have_posts()) :
     $i = 0;
     ?>
-    <section class="masonry justify-content-center product-cards">
+    <section class="masonry row-cols-1 row-cols-md-2">
         <?php while ($loop->have_posts()) :
             $loop->the_post();
             $post_id = get_the_ID();
             $category_ids = wp_get_post_terms(get_the_ID(), 'portfolio_categories', array('fields' => 'ids'));
             $category_string = implode(',', $category_ids);
             ?>
-            <div class="masonry-item col-12 col-md-6 p-2 overflow-hidden product-card"
+            <div class="masonry-item p-2 overflow-hidden product-card"
                  data-categories="<?php echo $category_string; ?>" data-visible="true">
                 <div class="w-100 h-100 position-relative portfolio_card p-0 overflow-hidden">
                     <img class="masonry-img object-fit w-100 img-fluid bg-warning"
