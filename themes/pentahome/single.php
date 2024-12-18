@@ -22,7 +22,7 @@ get_template_part('template-parts/page_banner', null, $args);
         if ($sideBar):
             ?>
             <aside id="sidebar" style="<?= current_user_can('administrator') ? 'margin-top:32px!important;' : ''; ?>"
-                   class="col-lg-3 col-xl-2 position-lg-fixed lazy bg-white top-0 bottom-0 end-0 z-10 col-12 border-end border-start border-primary mt-2 mt-lg-0">
+                   class="col-lg-3 col-xl-2 position-lg-fixed d-flex flex-column lazy bg-white top-0 bottom-0 end-0 z-10 col-12 border-end border-start border-primary mt-2 mt-lg-0">
                 <button id="sidebarBtn"
                         class="py-2 d-lg-flex d-none justify-content-center align-items-center w-100 shadow-sm rounded-0 bg-primary text-white btn text-white">
                     <svg id="menu-icon" width="25" height="25" fill="currentColor" class="bi bi-list"

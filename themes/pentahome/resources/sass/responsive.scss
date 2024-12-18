@@ -3,7 +3,7 @@
     position: fixed;
   }
   .table-of-contents {
-    height: 100%;
+    overflow-y: scroll;
   }
   .w-lg-75 {
     width: 75% !important;

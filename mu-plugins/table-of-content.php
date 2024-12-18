@@ -29,7 +29,7 @@ function get_toc($content, $from_tag, $to_tag, $sideBar) {
     // Parse TOC
     ob_start();
     echo "<div class='" . esc_attr($toc_classes) . "'>";
-    echo '<p class="fw-bold fs-5 my-3 text-primary">'. get_field('toc_title' , 'option') ?? 'آنچه در این مطلب می‌خوانید!'.'</p>';
+    echo '<p class="fw-bold fs-5 mb-3 text-primary">'. get_field('toc_title' , 'option') ?? 'آنچه در این مطلب می‌خوانید!'.'</p>';
     parse_toc(get_headings($content, $from_tag, $to_tag), 0, 0);
     echo "</div>";
     return ob_get_clean();
